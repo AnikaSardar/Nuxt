@@ -1,8 +1,6 @@
 <template>
     <div>
-      <head>
-        <title>{{ title }}</title>
-      </head>
+      <title>{{ title }}</title>
       <slot />
       <Footer/>
     </div>
