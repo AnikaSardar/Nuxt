@@ -1,13 +1,17 @@
-<template> 
+<template>
     <div>
-        <header>
-            <nav>
-                <NuxtLink to="/">Home</NuxtLink>
-                <ul>
-                    <li><NuxtLink to="/">Home</NuxtLink></li>
-                    <li><NuxtLink to="/userlisting">User Listing</NuxtLink></li>
-                </ul>
-             </nav>
-    </header>
+        <h1>Welcome to User Manager</h1>
+        <p>
+            <NuxtLink to="/users">View Users</NuxtLink>
+        </p>
     </div>
 </template>
+
+<script setup>
+useHead({
+    title: 'Home'
+})
+</script>
+
+<style scoped>
+</style>

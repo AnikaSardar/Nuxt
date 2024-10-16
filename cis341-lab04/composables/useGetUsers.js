@@ -1,12 +1,13 @@
 export const useGetUsers = () => {
-  const users = useState("users");
 
-  //if empty, set an inti val
-  if (!users.value) {
-    users.value = {
-      1: "John Doe",
-      2: "Jane Smith",
-    };
-  }
+  // array of user obj
+  const users = useState("users", () => [
+    { id: 1, name: 'Tom', age: 55 },
+    { id: 2, name: 'Tor', age: 45 }
+  ]);
+
   return { users };
 };
+
+
+  

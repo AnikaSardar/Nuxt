@@ -1,30 +1,21 @@
 <template>
     <div>
       <ul>
-        <!-- Render a Vue list using v-for. It's an obj that contains key,val pair-->
-        <li v-for="(value, key) in users">
+        <!-- Render a Vue list using v-for. For each of the user in users, get the user.id and user.name-->
+        <li v-for="user in users" :key="user.id">
           <!-- Render NuxtLink component. -->
-          <NuxtLink :to="`/users/${key}`">{{ value }}</NuxtLink>
+          <NuxtLink :to="`/users/${user.id}`">{{ user.name }}</NuxtLink>
         </li>
       </ul>
     </div>
 </template>
   
 <script setup>
-  // Get user list from global state via useGetUsers,
+   // Get user list from global state via useGetUsers,
   // which accesses useState().  
-  // obj of users
-  const { users } = useGetUsers();
+ const { users } = useGetUsers();
 </script>
   
 <style scoped>
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin: 5px 0;
-  }
 </style>
   
