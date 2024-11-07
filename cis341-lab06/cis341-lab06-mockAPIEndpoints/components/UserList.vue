@@ -33,7 +33,7 @@
 
       <ul>
         <li v-for="user in users" :key="user.id">
-          {{ user.name }} - {{ user.email }}
+          {{ user.name }} - {{ user.role }}
           <button @click="removeUser(user.id)">Delete</button>
           <button @click="editUser(user)">Edit</button>
         </li>
@@ -46,7 +46,8 @@
     const usersStore = useUsersStore();
     const newUser = ref({
         name: '',
-        email: ''
+        username: '',
+        role: ''
     });
     const users = ref(null);
     const modified = ref(false);

@@ -19,7 +19,7 @@ export const useUsersStore = defineStore("users", () => {
 
   const addUser = async (user) => {
     try {
-      user.id = generateId(user.email);
+      user.id = generateId(user.username);
       const { data } = await axios.post("http://localhost:3333/users", user);
       users.value.push(data);
       error.value = null;

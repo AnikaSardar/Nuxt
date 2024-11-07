@@ -17,13 +17,6 @@
       "name": "Emily Johnson",
       "username": "emily456",
       "role": "Registered Participant"
-    },
-    {
-      "id": "0",
-      "name": "Taylor Swift",
-      "email": "",
-      "username": "taylor456",
-      "role": "Admin"
     }
   ]
 }
