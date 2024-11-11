@@ -85,11 +85,5 @@
 </script>
   
 <style scoped>
-    div {
-        margin-bottom: 10px;
-    }
-    .error-message {
-        color: red;
-        margin-bottom: 1rem;
-    }
+@import url('~/assets/css/form.css');
 </style>

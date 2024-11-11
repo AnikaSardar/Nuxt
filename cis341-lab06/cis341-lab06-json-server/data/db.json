@@ -18,5 +18,15 @@
       "username": "emily456",
       "role": "Registered Participant"
     }
+  ],
+  "eventCategories": [
+    {
+      "id": "1",
+      "name": "Conference"
+    },
+    {
+      "id": "2",
+      "name": "Concert"
+    }
   ]
 }
