@@ -15,5 +15,5 @@
 <script setup>
 </script>
 <style>
-@import url('~/assets/css/top-navbar.css');
+@import url("~/assets/css/top-navbar.css");
 </style>

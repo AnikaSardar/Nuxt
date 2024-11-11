@@ -15,5 +15,5 @@
 </script>
 
 <style scoped>
-@import url('~/assets/css/profile-dropdown.css');
+@import url("~/assets/css/profile-dropdown.css");
 </style>

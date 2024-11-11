@@ -17,5 +17,5 @@ const title = useHead().title
 </script>
 
 <style scoped>
-@import url('~/assets/css/default-layout.css');
+@import url("~/assets/css/default-layout.css");
 </style>

@@ -8,5 +8,5 @@
 </script>
 
 <style scoped>
-@import url('~/assets/css/header.css');
+@import url("~/assets/css/header.css");
 </style>

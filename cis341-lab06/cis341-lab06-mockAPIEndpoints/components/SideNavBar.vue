@@ -18,5 +18,5 @@
 <script setup>
 </script>
 <style>
-@import url('~/assets/css/side-navbar.css');
+@import url("~/assets/css/side-navbar.css");
 </style>
