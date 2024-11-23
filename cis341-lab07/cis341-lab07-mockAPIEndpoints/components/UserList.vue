@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Add/Modify User Details</h1>
+        <!-- <h1>Add/Modify User Details</h1>
         <form @submit.prevent="createUser">
             <div>
                 <input v-model="newUser.name" placeholder="Name" required />
@@ -27,51 +27,68 @@
                 <button @click="removeUser(user.id)">Delete</button> |
                 <button @click="editUser(user)">Edit</button> |
             </li>
-        </ul>
+        </ul> -->
+        <div>
+    <h1>User List</h1>
+    <ul>
+      <li v-for="user in users" :key="user.id">
+                <NuxtLink :to="`/admin/userManagement/viewUserDetails/${user.id}`"> Name: {{ user.name }} | Username: {{
+                   user.username }} | Id: {{ user.id }} | Role: {{ user.role }} |</NuxtLink></li>
+      
+    </ul>
+    <p v-if="error">{{ error.message }}</p>
+    <p v-if="pending">Loading...</p>
+  </div>
     </div>
 
 </template>
 
 <script setup>
-const usersStore = useUsersStore();
-const newUser = ref({
-    name: '',
-    username: '',
-    role: ''
-});
-const users = ref(null);
-const modified = ref(false);
+import { useApiService } from '~/composables/useApiService';
 
-onMounted(async () => {
-    // Get users from store --> will trigger a fetch from external API.
-    await usersStore.fetchUsers();
-    users.value = usersStore.users;
-});
+const { getUsers } = useApiService();
 
-// Event handlers -- call appropriate action from Pinia store.
-const createUser = async () => {
-    if (modified.value) {
-        await usersStore.updateUser({ ...newUser.value });
-        modified.value = !modified.value;
-    } else {
-        await usersStore.addUser({ ...newUser.value });
-    }
-    newUser.value.name = '';
-    newUser.value.username = '';
-    newUser.value.role = '';
-};
+const { users, error, pending } = await getUsers();
 
-const removeUser = async (userId) => {
-    await usersStore.deleteUser(userId);
-    // For some reason the users ref does not pick up the changes
-    // to the store so we're forcing the assignment here.
-    users.value = usersStore.users;
-};
+// const usersStore = useUsersStore();
+// const newUser = ref({
+//     name: '',
+//     username: '',
+//     role: ''
+// });
+// const users = ref(null);
+// const modified = ref(false);
 
-const editUser = (user) => {
-    newUser.value = { ...user };
-    modified.value = true;
-};
+// onMounted(async () => {
+//     // Get users from store --> will trigger a fetch from external API.
+//     await usersStore.fetchUsers();
+//     users.value = usersStore.users;
+// });
+
+// // Event handlers -- call appropriate action from Pinia store.
+// const createUser = async () => {
+//     if (modified.value) {
+//         await usersStore.updateUser({ ...newUser.value });
+//         modified.value = !modified.value;
+//     } else {
+//         await usersStore.addUser({ ...newUser.value });
+//     }
+//     newUser.value.name = '';
+//     newUser.value.username = '';
+//     newUser.value.role = '';
+// };
+
+// const removeUser = async (userId) => {
+//     await usersStore.deleteUser(userId);
+//     // For some reason the users ref does not pick up the changes
+//     // to the store so we're forcing the assignment here.
+//     users.value = usersStore.users;
+// };
+
+// const editUser = (user) => {
+//     newUser.value = { ...user };
+//     modified.value = true;
+// };
 </script>
 
 <style scoped>

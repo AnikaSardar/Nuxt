@@ -7,7 +7,7 @@
                 <li><NuxtLink to="/admin/eventCategoryManagement">Manage Event Types</NuxtLink></li>
                 <li><NuxtLink to="/admin/eventList">Manage Event List</NuxtLink></li>
                 <li><NuxtLink to="/admin/eventManagement">Manage Events</NuxtLink></li>
-                <li><NuxtLink to="/admin/eventRegistrationManagemet">Manage Event Registration</NuxtLink></li>
+                <li><NuxtLink to="/admin/eventRegistrationManagement">Manage Event Registration</NuxtLink></li>
             </ul>
         </div>
     </div>
