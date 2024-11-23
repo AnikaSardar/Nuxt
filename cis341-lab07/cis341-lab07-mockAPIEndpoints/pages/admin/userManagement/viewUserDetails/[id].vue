@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <h1>View User Details</h1>
     <div v-if="user">
       <p>Name: {{ user.name }}</p>
@@ -8,7 +7,7 @@
       <p>Id: {{ user.id }}</p>
       <p>Role: {{ user.role }}</p>
     </div>
-    
+
     <p v-if="error">{{ error.message }}</p>
     <p v-if="pending">Loading...</p>
 
