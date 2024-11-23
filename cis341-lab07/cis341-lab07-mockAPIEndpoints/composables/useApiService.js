@@ -28,4 +28,3 @@ export const useApiService = () => {
 
     return { getUsers, getUserDetails, getEventCategories, getEventCategoryDetails };
   };
-  

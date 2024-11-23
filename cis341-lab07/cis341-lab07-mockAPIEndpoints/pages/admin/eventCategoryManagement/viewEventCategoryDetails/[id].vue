@@ -17,11 +17,30 @@
     title: 'View Event Category Details'
   });
   
-  const { getEventCategoryDetails } = useApiService();
-  const route = useRoute();
+const nuxt = useNuxtApp();
+const route = useRoute();
+const eventCategoryId = route.params.id;
+const CACHE_KEY = `eventCategory-${eventCategoryId}`;
+const CACHE_TTL = 10 * 1000; // 10 seconds
 
-  const {eventCategory, error, pending } = await getEventCategoryDetails(route.params.id);
+// Check cache and refetch if needed
+const { data: eventCategory, error } = await useFetch(`/api/eventCategories/${eventCategoryId}`, {
+  key: CACHE_KEY,
+  transform(input) {
+    return {
+      ...input,
+      fetchedAt: new Date(),
+    };
+  },
+  getCachedData: (key) => {
+    const data = nuxt.payload.data[key] || nuxt.static.data[key];
+    if (!data) return null;
 
+    const expirationDate = new Date(data.fetchedAt);
+    expirationDate.setTime(expirationDate.getTime() + CACHE_TTL);
+    return expirationDate.getTime() > Date.now() ? data : null;
+  },
+});
   </script>
   
   <style scoped></style>

@@ -1,15 +1,15 @@
 <template>
   <div>
     <h1>View User Details</h1>
-    <div v-if="user">
+    <p v-if="status === 'pending'">Loading...</p>
+    <div v-else>
       <p>Name: {{ user.name }}</p>
       <p>Username: {{ user.username }}</p>
       <p>Id: {{ user.id }}</p>
       <p>Role: {{ user.role }}</p>
     </div>
 
-    <p v-if="error">{{ error.message }}</p>
-    <p v-if="pending">Loading...</p>
+    <p v-if="error">{{ error.statusMessage }}</p>
 
     <NuxtLink to="/admin/userManagement">Back to User List</NuxtLink>
   </div>
@@ -21,12 +21,30 @@
 useHead({
   title: 'View User Details'
 });
-
-const { getUserDetails } = useApiService();
+const nuxt = useNuxtApp();
 const route = useRoute();
+const userId = route.params.id;
+const CACHE_KEY = `user-${userId}`;
+const CACHE_TTL = 10 * 1000; // 10 seconds
 
-const { user, error, pending } = await getUserDetails(route.params.id);
+// Check cache and refetch if needed
+const { data: user, error, status } = await useFetch(`/api/users/${userId}`, {
+  key: CACHE_KEY,
+  transform(input) {
+    return {
+      ...input,
+      fetchedAt: new Date(),
+    };
+  },
+  getCachedData: (key) => {
+    const data = nuxt.payload.data[key] || nuxt.static.data[key];
+    if (!data) return null;
 
+    const expirationDate = new Date(data.fetchedAt);
+    expirationDate.setTime(expirationDate.getTime() + CACHE_TTL);
+    return expirationDate.getTime() > Date.now() ? data : null;
+  },
+});
 </script>
 
 <style scoped></style>
