@@ -9,6 +9,7 @@
           <NuxtPage />
         </main>
       </div>
+      
     </div>
   </template>
 

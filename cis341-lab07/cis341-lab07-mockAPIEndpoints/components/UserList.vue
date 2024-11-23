@@ -10,7 +10,7 @@
                 </li>
 
             </ul>
-            <p v-if="error">{{ error.message }}</p>
+            <p v-if="error">{{ error.statusMessage }}</p>
             <p v-if="pending">Loading...</p>
         </div>
     </div>
@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import { useApiService } from '~/composables/useApiService';
 
+// call composable to get access to API handlers.
 const { getUsers } = useApiService();
-
+// call API handler.
 const { users, error, pending } = await getUsers();
 
 </script>

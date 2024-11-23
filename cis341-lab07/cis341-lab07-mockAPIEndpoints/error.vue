@@ -13,12 +13,12 @@
   if (props.error.statusCode === 404) {
     return {
       headerMsg: "Page not Found!!!",
-      paragraphMsg: "The page you were looking for was not found! Please try again."
+      paragraphMsg: "The page you were looking for was not found! Please ensure you have the correct url."
     };
   } else {
     return {
       statusCode: props.error.statusCode,
-      headerMsg: "We are facing some technical difficulties. Please try again."
+      headerMsg: "We are facing some technical difficulties. Please try again later."
     };
   } 
 });
