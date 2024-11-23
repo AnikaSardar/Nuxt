@@ -4,9 +4,11 @@ export const useApiLayer = () => {
     // fetch the list of users
     const getUsers = async () => {
       try {
+        // retrieve data from API endpt using the base url
         const users = await $fetch(`${baseUrl}/users`); // fetch all users from JSON Server
         return users; // return raw user data
       } catch (error) {
+       // if the request was not successful, throw the error.
         throw createError({
           statusCode: 500,
           statusMessage: 'Failed to fetch users from JSON Server.',
@@ -21,6 +23,7 @@ export const useApiLayer = () => {
         const user = await $fetch(`${baseUrl}/users/${id}`); // fetch specific user by ID
         return user; // return user details
       } catch (error) {
+        // if the request was not successful, throw the error.
         throw createError({
           statusCode: 500,
           statusMessage: `Failed to fetch user with ID ${id} from JSON Server.`,

@@ -1,4 +1,7 @@
+// API call consolidation on client-side.
 export const useApiService = () => {
+    /* Define the necessary API handlers.*/
+
     // Fetch the list of users
     const getUsers = async () => {
       const { data: users, error } = await useFetch('/api/users');

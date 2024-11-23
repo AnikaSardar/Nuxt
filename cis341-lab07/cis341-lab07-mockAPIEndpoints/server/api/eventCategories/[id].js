@@ -1,3 +1,4 @@
+// route handler; receives request 'event' as parameter.
 export default defineEventHandler(async (event) => {
     // extract the `id` parameter from the route
     const { id } = event.context.params;
