@@ -1,0 +1,446 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Daniel Jackson",
+      "username": "danijackson456",
+      "role": "Event Owner"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "username": "smith456",
+      "role": "Event Owner"
+    },
+    {
+      "id": 3,
+      "name": "Emily Johnson",
+      "username": "emily456",
+      "role": "Registered Participant"
+    }
+  ],
+  "eventCategories": [
+    {
+      "id": 1,
+      "name": "Conference"
+    },
+    {
+      "id": 2,
+      "name": "Concert"
+    }
+  ],
+    "events": [
+      {
+        "id": 1,
+        "name": "Tech Conference 2024",
+        "date": "2024-05-20T09:00:00Z",
+        "location": "San Francisco, CA",
+        "description": "A conference for tech enthusiasts and professionals to learn about the latest innovations in technology.",
+        "owner_id": 1,
+        "type_id": 1,
+        "attendees": 53,
+        "price": 500
+      },
+      {
+        "id": 2,
+        "name": "Music Festival",
+        "date": "2024-06-15T12:00:00Z",
+        "location": "Los Angeles, CA",
+        "description": "A weekend music festival featuring popular bands and DJs.",
+        "owner_id": 2,
+        "type_id": 2,
+        "attendees": 5032,
+        "price": 25
+      },
+      {
+        "id": 3,
+        "name": "Art Expo 2024",
+        "date": "2024-07-01T10:00:00Z",
+        "location": "New York, NY",
+        "description": "An exhibition showcasing the work of contemporary artists from around the world.",
+        "owner_id": 3,
+        "type_id": 3,
+        "attendees": 227,
+        "price": 50
+      },
+      {
+        "id": 4,
+        "name": "Startup Pitch Competition",
+        "date": "2024-08-10T08:00:00Z",
+        "location": "Silicon Valley, CA",
+        "description": "An event where startups pitch their business ideas to potential investors and judges.",
+        "owner_id": 1,
+        "type_id": 4,
+        "attendees": 99,
+        "price": 0
+      }
+    ],
+    "events_feedback": [
+      {
+        "event_id": 1,
+        "user_id": 1,
+        "comment": "This was a great event!",
+        "submitted": "2024-01-15T10:00:00Z"
+      },
+      {
+        "event_id": 1,
+        "user_id": 2,
+        "comment": "Really boring!",
+        "submitted": "2024-01-15T10:00:00Z"
+      }
+    ],
+    "events_registered_users": [
+      {
+        "id": 1,
+        "username": "john_doe",
+        "email": "john.doe@example.com",
+        "full_name": "John Doe",
+        "registration_date": "2024-01-15T10:00:00Z",
+        "role_id": 1
+      },
+      {
+        "id": 2,
+        "username": "sarah_lee",
+        "email": "sarah.lee@example.com",
+        "full_name": "Sarah Lee",
+        "registration_date": "2024-03-12T14:00:00Z",
+        "role_id": 2
+      },
+      {
+        "id": 3,
+        "username": "mike_smith",
+        "email": "mike.smith@example.com",
+        "full_name": "Mike Smith",
+        "registration_date": "2024-05-08T09:30:00Z",
+        "role_id": 3
+      }
+    ],
+    "events_rsvp": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "event_id": 1,
+      "registered": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "event_id": 1, 
+      "registered": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 3,
+      "user_id": 3,  
+      "event_id": 2,
+      "registered": "2024-01-15T10:00:00Z" 
+    },
+    {
+      "id": 4,
+      "user_id": 1, 
+      "event_id": 3,
+      "registered": "2024-01-15T10:00:00Z"
+    }
+    ],
+    "events_types": [
+      {
+        "id": 1,
+        "name": "Conference"
+      },
+      {
+        "id": 2,
+        "name": "Concert"
+      }
+    ],
+    "events_roles": [
+      {
+        "id": 1,
+        "name": "ADMIN"
+      },
+      {
+        "id": 2,
+        "name": "EVENT_OWNER"
+      },
+      {
+        "id": 3,
+        "name": "REGISTERED_USER"
+      }
+    ],
+    "workouts_plan_assignments": [
+      {
+        "plan_id": 1,
+        "athlete_id": 1
+      },
+      {
+        "plan_id": 2,
+        "athlete_id": 2
+      }
+    ],
+    "workouts_workouts": [
+      {
+        "id": 1,
+        "name": "Stretching workout",
+        "exercises": ["Stretch of 15 minutes", "Plank for 10 minutes"]
+      },
+      {
+        "id": 2,
+        "name": "Full-body workout",
+        "exercises": ["Treadmill for 20 minutes, high intensity", "Dips and squats, 3 sets of 10 reps each"]
+      },
+      {
+        "id": 3,
+        "name": "Lifting",
+        "exercises": ["Squats 200 lbs, 3 x 5", "Hammer curls 30 lbs, 4 x 7", "Bench press 150 lbs, 3 x 10"]
+      }
+    ],
+    "workouts_plans": [
+      {
+        "id": 1,
+        "name": "Hockey team - offseason conditioning"
+      },
+      {
+        "id": 2,
+        "name": "Track team - recovery"
+      }
+    ],
+    "workouts_plan_workouts": [
+      {
+        "workout_id": 2,
+        "plan_id": 1
+      },
+      {
+        "workout_id": 3,
+        "plain_id": 1
+      },
+      {
+        "workout_id": 1,
+        "plan_id": 2
+      }
+    ],
+    "workouts_athletes": [
+      {
+        "id": 1,
+        "name": "Mike Donaldson",
+        "team_id": 1
+      },
+      {
+        "id": 2,
+        "name": "Kylee Pitzewski",
+        "team_id": 2
+      }
+    ],
+    "workouts_teams": [
+      {
+        "id": 1,
+        "name": "Men's ice hockey"
+      },
+      {
+        "id": 2,
+        "name": "Women's track&field indoor"
+      }
+    ],
+    "workouts_staff": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "team_id": 1,
+        "role_id": 1
+      },
+      {
+        "id": 2,
+        "name": "Sarah Lee",
+        "team_id": 2,
+        "role_id": 2
+      }
+    ],
+    "workouts_staff_roles": [
+      {
+        "id": 1,
+        "name": "COACH"
+      },
+      {
+        "id": 2,
+        "name": "TRAINER"
+      }
+    ],
+    "workouts_messages": [
+      {
+        "athlete_id": 1,
+        "staff_id": 1,
+        "message": "Hurt my hamstring.",
+        "received": "2024-01-15T10:00:00Z"
+      },
+      {
+        "athlete_id": 2,
+        "staff_id": 2,
+        "message": "Had my 4th concussion of the season in yesterday's game.",
+        "received": "2024-01-15T10:00:00Z"
+      }
+    ],
+    "dnd_characters": [
+        {
+          "id": 1,
+          "name": "Thalindra Moonshadow",
+          "race": "Elf",
+          "class": "Wizard",
+          "type_id": 1,
+          "level": 5,
+          "alignment": "Neutral Good",
+          "hit_points": 30,
+          "current_hit_points": 27,
+          "abilities": {
+            "strength": 8,
+            "dexterity": 14,
+            "constitution": 12,
+            "intelligence": 18,
+            "wisdom": 15,
+            "charisma": 10
+          },
+          "equipment": [
+            "Staff of Power",
+            "Cloak of Invisibility",
+            "Spellbook"
+          ],
+          "spells": [
+            "Fireball",
+            "Shield",
+            "Mage Armor",
+            "Counterspell"
+          ],
+          "background": "Thalindra is a reclusive elf who spent most of her life studying ancient magic in the forests of Eldarath. She seeks knowledge of forgotten spells and lost artifacts."
+        },
+        {
+          "id": 2,
+          "name": "Gorak Thunderfist",
+          "race": "Dwarf",
+          "class": "Barbarian",
+          "type_id": 1,
+          "level": 4,
+          "alignment": "Chaotic Neutral",
+          "hit_points": 50,
+          "current_hit_points": 50,
+          "abilities": {
+            "strength": 18,
+            "dexterity": 12,
+            "constitution": 16,
+            "intelligence": 10,
+            "wisdom": 8,
+            "charisma": 12
+          },
+          "equipment": [
+            "Battleaxe",
+            "Shield",
+            "Helmet of the Berserker"
+          ],
+          "spells": [],
+          "background": "Gorak was once a peaceful miner, but after the death of his family in a raid, he became a fierce warrior, seeking revenge and glory through battle."
+        },
+        {
+          "id": 3,
+          "name": "Lirael Starbloom",
+          "race": "Half-Elf",
+          "class": "Ranger",
+          "type_id": 2,
+          "level": 3,
+          "alignment": "True Neutral",
+          "hit_points": 28,
+          "current_hit_points": 28,
+          "abilities": {
+            "strength": 10,
+            "dexterity": 16,
+            "constitution": 14,
+            "intelligence": 12,
+            "wisdom": 17,
+            "charisma": 13
+          },
+          "equipment": [
+            "Longbow",
+            "Quiver of Arrows",
+            "Boots of Elvenkind"
+          ],
+          "spells": [
+            "Hunter's Mark",
+            "Goodberry"
+          ],
+          "background": "Lirael grew up in the wilds, learning survival skills from both human and elven tribes. She is guided by a deep respect for nature and the balance of the world."
+        }
+    ],
+    "dnd_campaigns": [
+      {
+        "id": 1,
+        "name": "The Lost City of Zorr",
+        "description": "An ancient city lost to time, filled with treasures and deadly traps.",
+        "start_date": "2024-01-01",
+        "last_played": "2024-12-31",
+        "characters": [1, 2], 
+        "status": "Ongoing"
+      },
+      {
+        "id": 2,
+        "name": "Siege of the Iron Keep",
+        "description": "A campaign where players defend a fortified castle from an invading army.",
+        "start_date": "2024-04-15",
+        "last_played": "2024-12-31",
+        "characters": [3], 
+        "status": "Upcoming"
+      },
+      {
+        "id": 3,
+        "name": "Wizards of the Arcane Order",
+        "description": "A campaign centered around a group of wizards investigating arcane mysteries and battling dark forces.",
+        "start_date": "2024-07-01",
+        "last_played": "2024-12-31",
+        "characters": [1], 
+        "status": "Planning"
+      }
+    ],
+    "dnd_players": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "characters": [1] 
+      },
+      {
+        "id": 2,
+        "name": "Sarah Lee",
+        "characters": [2]
+      }
+    ],
+    "dnd_quests": [
+      {
+        "id": 1,
+        "status_id": 1,
+        "name": "Gold frenzy",
+        "description": "Retrieve three gold nuggets for Mr Pritchford."
+      },
+      {
+        "id": 1,
+        "status_id": 2,
+        "name": "Big Gnoll",
+        "description": "He looks brutish and wield a large axe."
+      }
+    ],
+    "dnd_quests_status" : [
+      {
+        "id": 1,
+        "name": "Ongoing"
+      },
+      {
+        "id": 2,
+        "name": "Completed"
+      }
+    ],
+    "dnd_characters_types": [
+      {
+        "id": 1,
+        "name": "Player"
+      },
+      {
+        "id": 2,
+        "name": "NPC"
+      },
+      {
+        "id": 2,
+        "name": "Monster"
+      }
+    ]
+  }

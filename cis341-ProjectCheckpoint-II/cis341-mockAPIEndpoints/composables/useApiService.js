@@ -26,5 +26,32 @@ export const useApiService = () => {
       return { eventCategory, error }; // Reactive data and error
     };
 
-    return { getUsers, getUserDetails, getEventCategories, getEventCategoryDetails };
+    const getEvents = async () => {
+      const { data: events, error } = await useFetch('/api/eventList');
+      return { events, error };
+    };
+  
+    const getEventDetails = async (id) => {
+      const { data: event, error } = await useFetch(`/api/eventList/${id}`);
+      return { event, error };
+    };
+  
+    const createRSVP = async (rsvp) => {
+      const { data, error } = await useFetch('/api/eventList/rsvp', {
+        method: 'POST',
+        body: rsvp,
+      });
+      return { data, error };
+    };
+  
+    const submitFeedback = async (feedback) => {
+      const { data, error } = await useFetch('/api/eventList/feedback', {
+        method: 'POST',
+        body: feedback,
+      });
+      return { data, error };
+    };
+
+
+    return { getUsers, getUserDetails, getEventCategories, getEventCategoryDetails,  getEvents, getEventDetails, createRSVP, submitFeedback };
   };

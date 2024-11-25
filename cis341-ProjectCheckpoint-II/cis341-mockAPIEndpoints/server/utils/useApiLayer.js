@@ -59,6 +59,70 @@ export const useApiLayer = () => {
         });
       }
     };
-  
-    return { getUsers, getUserDetails, getEventCategories, getEventCategoryDetails };
+
+    // fetch the list of events
+  const getEvents = async () => {
+    try {
+      const events = await $fetch(`${baseUrl}/events`); // Fetch all events from JSON Server
+      return events; // Return raw event data
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to fetch events from JSON Server.',
+        data: error,
+      });
+    }
+  };
+
+  // fetch details of a specific event
+  const getEventDetails = async (id) => {
+    try {
+      const event = await $fetch(`${baseUrl}/events/${id}`); // Fetch specific event by ID
+      return event; // Return event details
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to fetch event with ID ${id} from JSON Server.`,
+        data: error,
+      });
+    }
+  };
+
+  // create RSVP for an event
+  const createRSVP = async (rsvp) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events_rsvps`, {
+        method: 'POST',
+        body: rsvp, // Pass RSVP data to the JSON Server
+      });
+      return response; // Return the response from JSON Server
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to create RSVP on JSON Server.',
+        data: error,
+      });
+    }
+  };
+
+  // submit feedback for an event
+  const submitFeedback = async (feedback) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events_feedback`, {
+        method: 'POST',
+        body: feedback, // Pass feedback data to the JSON Server
+      });
+      return response; // Return the response from JSON Server
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to submit feedback to JSON Server.',
+        data: error,
+      });
+    }
+  };
+
+    return { getUsers, getUserDetails, getEventCategories, getEventCategoryDetails, 
+      getEvents, getEventDetails, createRSVP, submitFeedback 
+    };
   };
