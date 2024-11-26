@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   
     // Import the API layer for fetching data from the JSON server
     const { getEventFeedback } = useApiLayer();
-    console.log(event_id);
+
     // Validate the `eventId` parameter
     if (!parseInt(event_id)) {
       throw createError({ statusCode: 400, statusMessage: 'Invalid event ID.' });
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     try {
       // Call the utility layer to fetch the feedback for the specific event
       const e = await getEventFeedback(event_id); 
-      console.log(`eventFeedbacl/id ${JSON.stringify(e)}`)
+      console.log(`eventHandler for eventFeedback --> [id].js ---> geteventFeedback --> ${JSON.stringify(e)}`)
 
       return await getEventFeedback(event_id);
     } catch (error) {

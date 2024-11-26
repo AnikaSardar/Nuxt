@@ -191,10 +191,10 @@ export const useApiLayer = () => {
 
 const getEventFeedback = async (eventId) => {
   try {
-    console.log(`useAPILAYER getEventFeedback ${eventId}`)
+    console.log(`useAPIService.js --> getEventFeedback --> ${eventId}`)
     const feedback = await $fetch(`${baseUrl}/events_feedback?event_id=${eventId}`);
     //debug
-    console.log(JSON.stringify(feedback));
+    console.log(`useAPILayer.js -->  feedback--> ${JSON.stringify(feedback)}`);
 
     return feedback;
   } catch (error) {
