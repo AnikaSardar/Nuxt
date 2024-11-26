@@ -1,16 +1,7 @@
-// eventFeedback/[eventId].js
 export default defineEventHandler(async (event) => {
-    // Extract `eventId` parameter from the route
 
-    // console.log(event.context.params.id); 
-    // const {event_id} = getQuery(event);
-
-
-    // Get the `event_id` parameter from the query
-   
-
-    //const { eventId } = event.context.params;
-    const event_id = event.context.params.id;
+    // Get the `event_id` parameter from params
+  const event_id = event.context.params.id;
   
     // Import the API layer for fetching data from the JSON server
     const { getEventFeedback } = useApiLayer();
@@ -19,7 +10,6 @@ export default defineEventHandler(async (event) => {
     if (!parseInt(event_id)) {
       throw createError({ statusCode: 400, statusMessage: 'Invalid event ID.' });
     }
-
   
     try {
       // Call the utility layer to fetch the feedback for the specific event

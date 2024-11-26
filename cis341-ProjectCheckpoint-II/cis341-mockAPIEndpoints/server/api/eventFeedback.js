@@ -1,4 +1,4 @@
-// eventFeedback.js
+// eventFeedback event handler
 export default defineEventHandler(async () => {
     const { getEventFeedback } = useApiLayer();
     try {

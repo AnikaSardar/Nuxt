@@ -37,16 +37,19 @@ export const useApiService = () => {
       return { eventCategory, error }; // Reactive data and error
     };
 
+    // Fetch the list of events
     const getEvents = async () => {
       const { data: events, error } = await useFetch('/api/eventList');
       return { events, error };
     };
   
+    // Fetch details of a specific event 
     const getEventDetails = async (id) => {
       const { data: event, error } = await useFetch(`/api/eventList/${id}`);
       return { event, error };
     };
   
+    // post for rsvp
     const createRSVP = async (rsvp) => {
       const { data, error } = await useFetch('/api/eventList/rsvp', {
         method: 'POST',
@@ -54,7 +57,8 @@ export const useApiService = () => {
       });
       return { data, error };
     };
-  
+
+    // post for feedback
     const submitFeedback = async (feedback) => {
       const { data, error } = await useFetch('/api/eventList/feedback', {
         method: 'POST',
@@ -63,55 +67,19 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // get event feedback
     const getEventFeedback = async (eventId) => {
       console.log(`useAPIService.js --> getEventFeedback--> ${eventId}`)
       const { data: feedback, error } = await useFetch(`/api/eventFeedback/${eventId}`);
       console.log(`uuseAPIService.js -->  feebdbck--> ${JSON.stringify(feedback)}`)
       return { feedback, error };
     };
-  
+
+    // get event feedback details
     const getEventFeedbackDetails = async (userId) => {
       const { data: user, error } = await useFetch(`/api/userDetails/${userId}`);
       return { user, error };
     };
-
-    // const getEventFeedback = async (eventId) => {
-    //   const { data: feedbackList, error } = await useFetch(`/api/eventList/${eventId}/feedback`);
-    //   return { feedbackList, error };
-    // };
-    
-    // const getEventFeedback = async (eventId) => {
-    //   try {
-    //     // Fetch feedback entries for the given event
-    //     const { data: feedbackEntries, error: feedbackError } = await useFetch(`/api/eventList/events_feedback`);
-    //     if (feedbackError) throw new Error(feedbackError);
-    
-    //     // Filter feedback by eventId
-    //     const filteredFeedback = feedbackEntries.filter(feedback => feedback.event_id === eventId);
-    
-    //     // Fetch all users for enriching feedback
-    //     const { data: users, error: usersError } = await useFetch(`/api/events_registered_users`);
-    //     if (usersError) throw new Error(usersError);
-    
-    //     // Fetch event details for metadata
-    //     const { data: event, error: eventError } = await useFetch(`/api/eventList/${eventId}`);
-    //     if (eventError) throw new Error(eventError);
-    
-    //     // Enrich feedback with user details
-    //     const enrichedFeedback = filteredFeedback.map(feedback => ({
-    //       ...feedback,
-    //       user: users.find(user => user.id === feedback.user_id) || { full_name: "Unknown User" },
-    //     }));
-    
-    //     return { event, feedbackList: enrichedFeedback, error: null };
-    //   } catch (error) {
-    //     console.error("Error fetching event feedback:", error);
-    //     return { event: null, feedbackList: [], error };
-    //   }
-    // };
-    
-    
-
 
     return { getUsers, getUserDetails,  getRegisteredUsers, getRegisteredUserDetails, getEventCategories, getEventCategoryDetails,  getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getEventFeedbackDetails };
   };
