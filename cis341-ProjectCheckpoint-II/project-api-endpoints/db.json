@@ -87,6 +87,12 @@
         "user_id": 2,
         "comment": "Really boring!",
         "submitted": "2024-01-15T10:00:00Z"
+      },
+      {
+        "event_id": 2,
+        "user_id": 2,
+        "comment": "Really boring!",
+        "submitted": "2024-01-15T10:00:00Z"
       }
     ],
     "events_registered_users": [

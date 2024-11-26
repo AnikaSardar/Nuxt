@@ -31,5 +31,8 @@
   const { getEvents } = useApiService();
   const { events, error, status } = await getEvents();
   </script>
+  <style scoped>
+  @import url("~/assets/css/form.css");
+  </style>
   
   
