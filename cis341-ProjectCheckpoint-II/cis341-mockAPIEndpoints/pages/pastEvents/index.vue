@@ -1,14 +1,15 @@
 <template>
     <div>
-        <p>New Events</p>
+        <PastEventList />
     </div>
 </template>
 
 <script setup>
 useHead({
-    title: 'New Events'
+    title: 'Past Event List'
 })
 </script>
 
 <style scoped>
+
 </style>

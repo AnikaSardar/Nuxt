@@ -5,6 +5,7 @@
       <p>{{ event.description }}</p>
       <p>Location: {{ event.location }}</p>
       <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
+      <p>Price: ${{ event.price }}</p>
       <p>Attendees: {{ event.attendees }}</p>
 
       <h2>RSVP</h2>
@@ -27,7 +28,7 @@
       </li>
     </ul>  -->
 
-      <NuxtLink to="/admin/eventList">Back to Event List</NuxtLink>
+      <NuxtLink to="/pastEvents">User Back to Event List</NuxtLink>
     </div>
   </template>
   
