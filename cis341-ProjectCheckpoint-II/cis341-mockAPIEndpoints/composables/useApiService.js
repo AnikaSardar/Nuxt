@@ -69,9 +69,7 @@ export const useApiService = () => {
 
     // get event feedback
     const getEventFeedback = async (eventId) => {
-      console.log(`useAPIService.js --> getEventFeedback--> ${eventId}`)
       const { data: feedback, error } = await useFetch(`/api/eventFeedback/${eventId}`);
-      console.log(`uuseAPIService.js -->  feebdbck--> ${JSON.stringify(feedback)}`)
       return { feedback, error };
     };
 

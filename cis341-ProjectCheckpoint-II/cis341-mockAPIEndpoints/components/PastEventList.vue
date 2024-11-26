@@ -32,7 +32,6 @@ const status = ref('pending');
 
 try {
   const response = await getEvents();
-  console.log('Full Response:', response); // Debugging
 
   // Access the events array inside the RefImpl
   if (response.events && Array.isArray(response.events.value)) {

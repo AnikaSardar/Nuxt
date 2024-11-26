@@ -12,10 +12,6 @@ export default defineEventHandler(async (event) => {
     }
   
     try {
-      // Call the utility layer to fetch the feedback for the specific event
-      const e = await getEventFeedback(event_id); 
-      console.log(`eventHandler for eventFeedback --> [id].js ---> geteventFeedback --> ${JSON.stringify(e)}`)
-
       return await getEventFeedback(event_id);
     } catch (error) {
       // Handle errors

@@ -41,10 +41,6 @@
   const { eventCategories, error: typeError } = await getEventCategories();
 
   const { eventFeedback, error, status } = await getEventFeedback(eventId);
-
-  // Access the feedback value
-const e_feedback = eventFeedback?.value || [];
-console.log(`[id].vue ---> eventFeedback--> ${JSON.stringify(e_feedback)}`);
   
   // was suppose to post feedback
   const submitFeedbackHandler = async () => {
