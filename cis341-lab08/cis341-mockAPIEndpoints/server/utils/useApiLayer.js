@@ -32,12 +32,20 @@ export const useApiLayer = () => {
       }
     };
 
+<<<<<<< Updated upstream
+=======
+    // fetchde list of registered users
+>>>>>>> Stashed changes
     const getRegisteredUsers = async () => {
       const { data, error } = await useFetch('/api/events_registered_users');
       if (error) throw new Error('Failed to fetch registered users.');
       return data;
     };
   
+<<<<<<< Updated upstream
+=======
+    // fetch details of a specific registered user
+>>>>>>> Stashed changes
     const getRegisteredUserDetails = async (id) => {
       const { data, error } = await useFetch(`/api/events_registered_users/${id}`);
       if (error) throw new Error(`Failed to fetch registered user with ID ${id}.`);
@@ -89,8 +97,21 @@ export const useApiLayer = () => {
   // fetch details of a specific event
   const getEventDetails = async (id) => {
     try {
+<<<<<<< Updated upstream
       const event = await $fetch(`${baseUrl}/events/${id}`); // Fetch specific event by ID
       return event; // Return event details
+=======
+      // Fetch event details
+      const event = await $fetch(`${baseUrl}/events/${id}`);
+      // Fetch related data
+      console.log(`<---------------THIS IS EVENT ID: ${id}----->`);
+      console.log(`event.type_id ${event.type_id}`);
+      console.log(`event.owner_id ${event.owner_id}`);
+      const eventType = await $fetch(`${baseUrl}/events_types/${event.type_id}`);
+      const eventOwner = await $fetch(`${baseUrl}/events_registered_users/${event.owner_id}`);
+      // Add related data to the event object
+      return { ...event, eventType, eventOwner };
+>>>>>>> Stashed changes
     } catch (error) {
       throw createError({
         statusCode: 500,
@@ -134,6 +155,7 @@ export const useApiLayer = () => {
     }
   };
 
+<<<<<<< Updated upstream
 
 
 // const getEventFeedback = async (eventId) => {
@@ -220,6 +242,21 @@ const getEventFeedback = async (eventId) => {
 // };
 
 
+=======
+    // fetch event feedback
+  const getEventFeedback = async (eventId) => {
+    try {
+      const feedback = await $fetch(`${baseUrl}/events_feedback?event_id=${eventId}`);
+      return feedback;
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to fetch feedback for event with ID ${eventId} from JSON Server.`,
+        data: error,
+      });
+    }
+  };
+>>>>>>> Stashed changes
     return { getUsers, getUserDetails,  getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
       getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getRegisteredUserDetails
     };

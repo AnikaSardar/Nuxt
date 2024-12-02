@@ -5,10 +5,15 @@
             <nav>
                 <ul>
                     <li><NuxtLink to="/">Home</NuxtLink></li>    
+<<<<<<< Updated upstream
                     <li><NuxtLink to="/newEvents">New Events</NuxtLink></li>    
                     <li><NuxtLink to="/savedEvents">Saved Events</NuxtLink></li>    
                     <li><NuxtLink to="/pastEvents">Past Events</NuxtLink></li>    
                     <li><NuxtLink to="/inbox">Inbox</NuxtLink></li>  
+=======
+                    <li><NuxtLink to="/newEvents">New Events</NuxtLink></li>      
+                    <li><NuxtLink to="/pastEvents">Past Events</NuxtLink></li>     
+>>>>>>> Stashed changes
                 </ul>
             </nav>
         </aside>

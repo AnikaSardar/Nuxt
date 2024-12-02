@@ -37,16 +37,28 @@ export const useApiService = () => {
       return { eventCategory, error }; // Reactive data and error
     };
 
+<<<<<<< Updated upstream
+=======
+    // Fetch the list of events
+>>>>>>> Stashed changes
     const getEvents = async () => {
       const { data: events, error } = await useFetch('/api/eventList');
       return { events, error };
     };
   
+<<<<<<< Updated upstream
+=======
+    // Fetch details of a specific event 
+>>>>>>> Stashed changes
     const getEventDetails = async (id) => {
       const { data: event, error } = await useFetch(`/api/eventList/${id}`);
       return { event, error };
     };
   
+<<<<<<< Updated upstream
+=======
+    // post for rsvp
+>>>>>>> Stashed changes
     const createRSVP = async (rsvp) => {
       const { data, error } = await useFetch('/api/eventList/rsvp', {
         method: 'POST',
@@ -54,7 +66,12 @@ export const useApiService = () => {
       });
       return { data, error };
     };
+<<<<<<< Updated upstream
   
+=======
+
+    // post for feedback
+>>>>>>> Stashed changes
     const submitFeedback = async (feedback) => {
       const { data, error } = await useFetch('/api/eventList/feedback', {
         method: 'POST',
@@ -63,6 +80,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+<<<<<<< Updated upstream
     const getEventFeedback = async (eventId) => {
       console.log(`useAPIService.js --> getEventFeedback--> ${eventId}`)
       const { data: feedback, error } = await useFetch(`/api/eventFeedback/${eventId}`);
@@ -70,11 +88,21 @@ export const useApiService = () => {
       return { feedback, error };
     };
   
+=======
+    // get event feedback
+    const getEventFeedback = async (eventId) => {
+      const { data: feedback, error } = await useFetch(`/api/eventFeedback/${eventId}`);
+      return { feedback, error };
+    };
+
+    // get event feedback details
+>>>>>>> Stashed changes
     const getEventFeedbackDetails = async (userId) => {
       const { data: user, error } = await useFetch(`/api/userDetails/${userId}`);
       return { user, error };
     };
 
+<<<<<<< Updated upstream
     // const getEventFeedback = async (eventId) => {
     //   const { data: feedbackList, error } = await useFetch(`/api/eventList/${eventId}/feedback`);
     //   return { feedbackList, error };
@@ -113,5 +141,7 @@ export const useApiService = () => {
     
 
 
+=======
+>>>>>>> Stashed changes
     return { getUsers, getUserDetails,  getRegisteredUsers, getRegisteredUserDetails, getEventCategories, getEventCategoryDetails,  getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getEventFeedbackDetails };
   };

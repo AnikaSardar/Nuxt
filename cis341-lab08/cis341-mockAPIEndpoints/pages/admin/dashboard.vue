@@ -1,5 +1,9 @@
 <template>
     <div>
+<<<<<<< Updated upstream
+=======
+        <h1>Dashboard</h1>
+>>>>>>> Stashed changes
         <Dashboard />
     </div>
 </template>
