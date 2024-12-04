@@ -1,0 +1,18 @@
+{
+  "name": "project-api-endpoints",
+  "version": "1.0.0",
+  "description": "JSON Server API endpoints for course project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "json-server": "0.17.4"
+  }
+}
