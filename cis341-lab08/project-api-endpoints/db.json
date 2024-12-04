@@ -110,6 +110,7 @@
       {
         "id": 1,
         "username": "john_doe",
+        "password": "joepass",
         "email": "john.doe@example.com",
         "full_name": "John Doe",
         "registration_date": "2024-01-15T10:00:00Z",
@@ -118,6 +119,7 @@
       {
         "id": 2,
         "username": "sarah_lee",
+        "password": "sarahpass",
         "email": "sarah.lee@example.com",
         "full_name": "Sarah Lee",
         "registration_date": "2024-03-12T14:00:00Z",
@@ -126,6 +128,7 @@
       {
         "id": 3,
         "username": "mike_smith",
+        "password": "mikepass",
         "email": "mike.smith@example.com",
         "full_name": "Mike Smith",
         "registration_date": "2024-05-08T09:30:00Z",
