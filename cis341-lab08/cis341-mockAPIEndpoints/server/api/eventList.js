@@ -1,6 +1,7 @@
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (event) => {
     const { getEvents } = useApiLayer();
     try {
+      await authorizeRoute(event, "admin");
       return await getEvents();
     } catch (error) {
       throw createError({

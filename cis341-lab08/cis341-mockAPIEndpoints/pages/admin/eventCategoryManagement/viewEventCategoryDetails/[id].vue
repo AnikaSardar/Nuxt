@@ -16,6 +16,10 @@
   useHead({
     title: 'View Event Category Details'
   });
+
+  definePageMeta({
+    middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
+  });
   
 const nuxt = useNuxtApp();
 const route = useRoute();
