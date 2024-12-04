@@ -32,12 +32,14 @@ export const useApiLayer = () => {
       }
     };
 
+    // fetchde list of registered users
     const getRegisteredUsers = async () => {
       const { data, error } = await useFetch('/api/events_registered_users');
       if (error) throw new Error('Failed to fetch registered users.');
       return data;
     };
   
+    // fetch details of a specific registered user
     const getRegisteredUserDetails = async (id) => {
       const { data, error } = await useFetch(`/api/events_registered_users/${id}`);
       if (error) throw new Error(`Failed to fetch registered user with ID ${id}.`);
@@ -89,8 +91,16 @@ export const useApiLayer = () => {
   // fetch details of a specific event
   const getEventDetails = async (id) => {
     try {
-      const event = await $fetch(`${baseUrl}/events/${id}`); // Fetch specific event by ID
-      return event; // Return event details
+      // Fetch event details
+      const event = await $fetch(`${baseUrl}/events/${id}`);
+      // Fetch related data
+      console.log(`<---------------THIS IS EVENT ID: ${id}----->`);
+      console.log(`event.type_id ${event.type_id}`);
+      console.log(`event.owner_id ${event.owner_id}`);
+      const eventType = await $fetch(`${baseUrl}/events_types/${event.type_id}`);
+      const eventOwner = await $fetch(`${baseUrl}/events_registered_users/${event.owner_id}`);
+      // Add related data to the event object
+      return { ...event, eventType, eventOwner };
     } catch (error) {
       throw createError({
         statusCode: 500,
@@ -134,92 +144,19 @@ export const useApiLayer = () => {
     }
   };
 
-
-
-// const getEventFeedback = async (eventId) => {
-//   try {
-//     // Fetch all feedback for the given event ID
-//     const feedbackList = await $fetch(`${baseUrl}/events_feedback`, {
-//       method: "GET",
-//     });
-
-//     // Filter feedback related to the specific event
-//     const eventFeedback = feedbackList.filter((feedback) => feedback.event_id === eventId);
-
-//     if (!eventFeedback.length) {
-//       throw createError({
-//         statusCode: 404,
-//         statusMessage: `No feedback found for event ID ${eventId}.`,
-//       });
-//     }
-
-//     // Fetch event details
-//     const events = await $fetch(`${baseUrl}/events`, { method: "GET" });
-//     const event = events.find((e) => e.id === eventId);
-
-//     if (!event) {
-//       throw createError({
-//         statusCode: 404,
-//         statusMessage: `Event with ID ${eventId} not found.`,
-//       });
-//     }
-
-//     // Fetch user details
-//     const users = await $fetch(`${baseUrl}/events_registered_users`, { method: "GET" });
-
-//     // Enrich feedback with user details
-//     const feedbackWithUserDetails = eventFeedback.map((feedback) => {
-//       const user = users.find((u) => u.id === feedback.user_id);
-//       return {
-//         ...feedback,
-//         user: user ? { id: user.id, username: user.username, full_name: user.full_name } : null,
-//       };
-//     });
-
-//     return {
-//       event,
-//       feedback: feedbackWithUserDetails,
-//     };
-//   } catch (error) {
-//     throw createError({
-//       statusCode: error.statusCode || 500,
-//       statusMessage: error.statusMessage || `Failed to fetch feedback for event with ID ${eventId}.`,
-//       data: error.data || error,
-//     });
-//   }
-// };
-
-const getEventFeedback = async (eventId) => {
-  try {
-    console.log(`useAPIService.js --> getEventFeedback --> ${eventId}`)
-    const feedback = await $fetch(`${baseUrl}/events_feedback?event_id=${eventId}`);
-    //debug
-    console.log(`useAPILayer.js -->  feedback--> ${JSON.stringify(feedback)}`);
-
-    return feedback;
-  } catch (error) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: `Failed to fetch feedback for event with ID ${eventId} from JSON Server.`,
-      data: error,
-    });
-  }
-};
-
-// const getRegisteredUserDetails = async (userId) => {
-//   try {
-//     const user = await $fetch(`${baseUrl}/events_registered_users/${userId}`);
-//     return user; // Assuming ID is unique
-//   } catch (error) {
-//     throw createError({
-//       statusCode: 500,
-//       statusMessage: `Failed to fetch user with ID ${userId} from JSON Server.`,
-//       data: error,
-//     });
-//   }
-// };
-
-
+    // fetch event feedback
+  const getEventFeedback = async (eventId) => {
+    try {
+      const feedback = await $fetch(`${baseUrl}/events_feedback?event_id=${eventId}`);
+      return feedback;
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to fetch feedback for event with ID ${eventId} from JSON Server.`,
+        data: error,
+      });
+    }
+  };
     return { getUsers, getUserDetails,  getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
       getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getRegisteredUserDetails
     };

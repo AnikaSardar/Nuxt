@@ -1,12 +1,15 @@
 <template>
     <div>
-        <NuxtLink to="/admin/dashboard">Go back to Dashboard</NuxtLink>
-        <EventList />
+        <NewEventList />
     </div>
 </template>
 
 <script setup>
+useHead({
+    title: 'New Event List'
+})
 </script>
 
 <style scoped>
+
 </style>
