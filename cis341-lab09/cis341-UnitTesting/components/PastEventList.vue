@@ -24,45 +24,7 @@
 <script setup>
 
 const { getEvents, eventList } = useApiService();
-await getEvents();
-
-// const events = ref([]);
-// const error = ref(null);
-// const status = ref('pending');
-
-// try {
-//   const response = await getEvents();
-
-//   // Access the events array inside the RefImpl
-//   if (response.events && Array.isArray(response.events.value)) {
-//     events.value = response.events.value; // Assign the actual array
-//     status.value = 'success';
-//   } else {
-//     console.error('Unexpected response format:', response);
-//     throw new Error('Invalid response format');
-//   }
-// } catch (err) {
-//   console.error('Error fetching events:', err);
-//   error.value = err;
-//   status.value = 'error';
-// }
-
-// // try {
-// //   const response = await getEvents();
-// //   events.value = response.events?.value || [];
-// //   status.value = 'success';
-// // } catch (err) {
-// //   console.error('Error fetching events:', err);
-// //   error.value = err; // Update the ref correctly
-// //   status.value = 'error';
-// // }
-
-
-// // Filtered events computed property
-// const filteredEvents = computed(() => {
-//   const today = new Date();
-//   return events.value.filter(event => new Date(event.date) < today);
-// });
+await getEvents(); // call getEvents
 
 </script>
 <style scoped>
