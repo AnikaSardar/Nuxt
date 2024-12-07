@@ -15,6 +15,11 @@
       headerMsg: "Page not Found!!!",
       paragraphMsg: "The page you were looking for was not found! Please ensure you have the correct url."
     };
+  } if (props.error.statusCode === 401) {
+      return{
+        headerMsg: "Aunthorized access",
+        paragraphMsg: "Not authorized to access endpoint."
+      };
   } else {
     return {
       statusCode: props.error.statusCode,

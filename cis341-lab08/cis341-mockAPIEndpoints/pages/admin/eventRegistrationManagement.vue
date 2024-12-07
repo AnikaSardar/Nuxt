@@ -11,8 +11,8 @@ useHead({
 })
 
 definePageMeta({
-    middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
-  });
+    middleware: ['commonauth']
+})
 </script>
 
 <style scoped>

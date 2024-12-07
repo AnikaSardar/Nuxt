@@ -30,11 +30,6 @@ useHead({
     title: 'View Event Details'
 })
 
-  definePageMeta({
-    middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
-  });
-  
-
   const route = useRoute();
   const { data: event, error, pending } = await useFetch(`/api/eventList/${route.params.id}`);
 

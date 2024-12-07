@@ -3,7 +3,7 @@
         <button class="dropbtn">[Profile-icon dropdown]</button>
         <div class="dropdown-content">
             <NuxtLink v-if="isAuthenticated()" to="/admin/profile">My Profile</NuxtLink>
-            <NuxtLink v-if="isAdmin"  to="/admin/dashboard">Dashboard</NuxtLink>
+            <NuxtLink v-if="isAdminOrEventOwner"  to="/admin/dashboard">Dashboard</NuxtLink>
             <NuxtLink v-if="isAuthenticated()" to="/settings">Settings</NuxtLink>
             <!-- Dynamically change text for login/logout -->
             <NuxtLink v-if="isAuthenticated()" to="/login">Sign out</NuxtLink>
@@ -24,7 +24,7 @@ const userRole = ref(null);
 const { isAuthenticated, getRole } = useAuth();
 
 // Computed property to check if the user is an admin
-const isAdmin = computed(() => userRole.value === "admin");
+const isAdminOrEventOwner = computed(() => userRole.value === "admin" || userRole.value === "event_owner");
 
 // Retrieve the user role when the component is mounted
 onMounted(() => {

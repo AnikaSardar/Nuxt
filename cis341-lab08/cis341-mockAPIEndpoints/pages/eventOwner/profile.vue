@@ -9,9 +9,9 @@ useHead({
     title: 'My Profile'
 })
 
-definePageMeta({
-    middleware: ['event-owner-auth'],  // Apply the adminAuth middleware to this page
-  });
+// definePageMeta({
+//     middleware: ['event-owner-auth'],  // Apply the adminAuth middleware to this page
+//   });
 </script>
 
 <style scoped>
