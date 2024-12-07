@@ -34,8 +34,6 @@ const route = useRoute();
 const { data: event, error, pending } = await useFetch(`/api/eventList/${route.params.id}`);
 
 if (error.value) {
-// console.error(error.value);
-console.log(`THIS IS THE ERROR: ${JSON.stringify(error.value)}`)
 console.log(`DATA: ${JSON.stringify(event)}`);
 }
   </script>

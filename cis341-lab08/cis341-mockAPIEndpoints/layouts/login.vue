@@ -49,7 +49,6 @@ const handleLogin = async () => {
       await navigateTo('/');
     }
   } catch (err) {
-    console.log(err);
     error.value = err.message;  // Show error if login fails
   }
 };

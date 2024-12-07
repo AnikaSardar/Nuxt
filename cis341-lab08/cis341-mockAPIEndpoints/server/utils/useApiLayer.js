@@ -94,9 +94,6 @@ export const useApiLayer = () => {
       // Fetch event details
       const event = await $fetch(`${baseUrl}/events/${id}`);
       // Fetch related data
-      console.log(`<---------------THIS IS EVENT ID: ${id}----->`);
-      console.log(`event.type_id ${event.type_id}`);
-      console.log(`event.owner_id ${event.owner_id}`);
       const eventType = await $fetch(`${baseUrl}/events_types/${event.type_id}`);
       const eventOwner = await $fetch(`${baseUrl}/events_registered_users/${event.owner_id}`);
       // Add related data to the event object

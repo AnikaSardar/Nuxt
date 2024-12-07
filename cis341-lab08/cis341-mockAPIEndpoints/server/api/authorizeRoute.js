@@ -1,5 +1,5 @@
 export default async (event, roles) => {
-  console.log("line 2 ela");
+  
   const runtimeConfig = useRuntimeConfig();
   const authCookie = getCookie(event, runtimeConfig.authCookieName);
 
@@ -9,11 +9,6 @@ export default async (event, roles) => {
       name: runtimeConfig.authCookieName,
       password: runtimeConfig.sessionPassword,
     });
-    
-    console.log("ela!!");
-    console.log(`session.data.role: ${session.data.role}`);
-    console.log(`roles: ${roles}`);
-    console.log("ela end");
 
     // Check if the user's role is in the list of allowed roles
     if (roles.includes(session.data.role)) {
