@@ -7,7 +7,7 @@
 
 <script setup>
 useHead({
-    title: 'Event Management'
+    title: 'Event Category Management'
 })
 
 definePageMeta({

@@ -17,10 +17,14 @@
 </template>
 
 <script setup>
-
 useHead({
-  title: 'View User Details'
-});
+    title: 'View User Details'
+})
+
+definePageMeta({
+    middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
+  });
+
 const nuxt = useNuxtApp();
 const route = useRoute();
 const userId = route.params.id;

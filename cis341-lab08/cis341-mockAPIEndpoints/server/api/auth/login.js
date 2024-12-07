@@ -52,16 +52,21 @@
 // });
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  console.log(`login.js ---> Received body: ${JSON.stringify(body)}`);
+
 
   try {
     // Fetch users from JSON Server
     const users = await $fetch("http://localhost:3333/events_registered_users");
+    const events_roles = await $fetch("http://localhost:3333/events_roles");
+    console.log("events_roles: ", events_roles);
 
     // Validate username and password
     const user = users.find(
       (u) => u.username === body.username && u.password === body.password
     );
+
+    const eventRole = getEventRole(events_roles, user);
+    console.log("eventROle is: ", eventRole);
 
     if (!user) {
       throw createError({
@@ -80,19 +85,25 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    await session.update({ role: user.role || "user" });
+    console.log("Ela printing user.role: ", user);
+    await session.update({ role: eventRole || "admin" });
 
     return {
       id: user.id,
       username: user.username,
       fullName: user.full_name,
-      role: user.role || "user",
+      role: eventRole  || "user",
     };
   } catch (error) {
-    console.error(`login.js ---> Error: ${error.message}`);
+    console.error("login.js ---> Error: ${error.message}");
     throw createError({
       statusCode: 401,
       statusMessage: "Invalid credentials!",
     });
   }
 });
+
+function getEventRole(events_roles, user) {
+  const role = events_roles.find(role => role.id === user.id);
+  return role ? role.name.toLowerCase() : null; // Return the role name or null if not found
+}

@@ -45,7 +45,7 @@ export const useAuth = () => {
 
   const getUserName = () => {
     return token.value
-      ? `${token.value.firstName} ${token.value.lastName}`
+      ? `${token.value.fullName}`
       : "anonymous";
   };
 

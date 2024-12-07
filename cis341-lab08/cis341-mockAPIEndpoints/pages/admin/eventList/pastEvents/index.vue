@@ -9,6 +9,10 @@
 useHead({
     title: 'Past Event List'
 })
+definePageMeta({
+    middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
+  });
+
 </script>
 
 <style scoped>

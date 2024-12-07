@@ -6,7 +6,11 @@
 </template>
 
 <script setup>
-  definePageMeta({
+useHead({
+    title: 'Event Registration Management'
+})
+
+definePageMeta({
     middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
   });
 </script>

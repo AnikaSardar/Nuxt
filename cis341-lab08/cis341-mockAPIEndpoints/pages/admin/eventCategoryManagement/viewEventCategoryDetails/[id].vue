@@ -12,10 +12,9 @@
   </template>
   
   <script setup>
-  
-  useHead({
+useHead({
     title: 'View Event Category Details'
-  });
+})
 
   definePageMeta({
     middleware: ['admin-auth'],  // Apply the adminAuth middleware to this page
