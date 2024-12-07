@@ -1,0 +1,25 @@
+/* This centers the entire page */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Take full viewport height */
+    background-color: #f4f4f4;  /* Optional: to make the background look nice */
+  }
+  
+  .login-form-container {
+    width: 100%;
+    max-width: 400px;  /* You can adjust the max-width as needed */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-top: 20px;
+  }
