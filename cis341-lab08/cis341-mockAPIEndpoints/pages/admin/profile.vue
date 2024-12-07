@@ -8,7 +8,9 @@
 useHead({
     title: 'My Profile'
 })
-
+definePageMeta({
+    middleware: ['commonauth'],  // Apply the adminAuth middleware to this page
+  });
 </script>
 
 <style scoped>

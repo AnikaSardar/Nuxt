@@ -9,6 +9,9 @@
 useHead({
     title: 'Dashboard'
 })
+definePageMeta({
+    middleware: ['commonauth']
+})
 </script>
 
 <style scoped>

@@ -8,6 +8,9 @@
 useHead({
     title: 'My Profile'
 })
+definePageMeta({
+    middleware: ['registereduserauth']
+})
 </script>
 
 <style scoped>
