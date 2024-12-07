@@ -2,10 +2,12 @@
     <div class="dropdown">
         <button class="dropbtn">[Profile-icon dropdown]</button>
         <div class="dropdown-content">
-            <NuxtLink to="/admin/profile">My Profile</NuxtLink>
+            <NuxtLink v-if="isAuthenticated()" to="/admin/profile">My Profile</NuxtLink>
             <NuxtLink v-if="isAdmin"  to="/admin/dashboard">Dashboard</NuxtLink>
-            <NuxtLink to="/settings">Settings</NuxtLink>
-            <NuxtLink to="/login">Sign out</NuxtLink>
+            <NuxtLink v-if="isAuthenticated()" to="/settings">Settings</NuxtLink>
+            <!-- Dynamically change text for login/logout -->
+            <NuxtLink v-if="isAuthenticated()" to="/login">Sign out</NuxtLink>
+            <NuxtLink v-else to="/login">Login</NuxtLink>
         </div>
     </div>
 
@@ -18,8 +20,8 @@ import { useAuth } from "~/utils/auth.js"; // Adjust the path to where `useAuth`
 // Reactive variable to hold the user's role
 const userRole = ref(null);
 
-// Import the `getRole` function
-const { getRole } = useAuth();
+// Import the `getRole`, isAuthenticated functions
+const { isAuthenticated, getRole } = useAuth();
 
 // Computed property to check if the user is an admin
 const isAdmin = computed(() => userRole.value === "admin");
