@@ -24,7 +24,7 @@
 <script setup>
 import { ref, computed} from 'vue';
 
-const { getEvents } = useApiService();
+const { getEvents, error } = useApiService();
 
 const events = ref([]);
 const status = ref('pending');
