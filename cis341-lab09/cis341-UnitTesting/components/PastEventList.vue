@@ -24,7 +24,7 @@
 <script setup>
 import { ref, computed} from 'vue';
 
-const { getEvents, error } = useApiService();
+const { getEvents } = useApiService();
 
 const events = ref([]);
 const status = ref('pending');
@@ -42,6 +42,7 @@ if (response.events && Array.isArray(response.events.value)) {
   throw new Error('Invalid response format');
 }
 } catch (err) {
+const error = ref(null)
 console.error('Error fetching events:', err);
 error.value = err;
 status.value = 'error';
