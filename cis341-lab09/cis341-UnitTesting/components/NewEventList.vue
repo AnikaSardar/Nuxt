@@ -38,7 +38,6 @@ try {
     events.value = response.events.value; // Assign the actual array
     status.value = 'success';
   } else {
-    console.log("Golu");
     console.error('Unexpected response format:', response);
     throw new Error('Invalid response format');
   }
