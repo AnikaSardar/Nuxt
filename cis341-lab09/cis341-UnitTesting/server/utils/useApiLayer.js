@@ -1,14 +1,10 @@
 export const useApiLayer = () => {
   const baseUrl = 'http://localhost:3333';
 
-   // Define a reactive reference to store the list of events.
-  const eventList = ref([]);
-
     // fetch the list of events
   const getEvents = async () => {
     try {
       const events = await $fetch(`${baseUrl}/events`); // Fetch all events from JSON Server
-      eventList.value = events;
       return events; // Return raw event data
     } catch (error) {
       throw createError({
@@ -39,6 +35,6 @@ export const useApiLayer = () => {
   };
 
     return {  
-      getEvents, getEventDetails, eventList,
+      getEvents, getEventDetails
     };
   };
