@@ -2,7 +2,7 @@
     <div>
       <title>{{ title }}</title>
       <TopNavBar />
-      
+      <!-- AUTHENTICATION -->
       <div class="layout-container">
         <SideNavBar />
         <main class="main-content">
@@ -15,6 +15,9 @@
 
 <script setup>
 const title = useHead().title
+
+const { isAuthenticated, getUserName } = useAuth(); // Use the authentication state
+
 </script>
 
 <style scoped>
