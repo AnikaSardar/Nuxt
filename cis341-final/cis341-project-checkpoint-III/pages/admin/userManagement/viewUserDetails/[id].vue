@@ -17,10 +17,10 @@
 </template>
 
 <script setup>
-
 useHead({
-  title: 'View User Details'
-});
+    title: 'View User Details'
+})
+
 const nuxt = useNuxtApp();
 const route = useRoute();
 const userId = route.params.id;

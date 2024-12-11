@@ -8,6 +8,10 @@
 useHead({
     title: 'My Profile'
 })
+
+definePageMeta({
+    middleware: ['commonauth']
+})
 </script>
 
 <style scoped>

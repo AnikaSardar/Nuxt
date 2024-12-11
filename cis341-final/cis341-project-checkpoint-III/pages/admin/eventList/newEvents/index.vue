@@ -7,8 +7,9 @@
 
 <script setup>
 useHead({
-    title: 'New Event List'
+    title: 'New Events'
 })
+
 </script>
 
 <style scoped>

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <p>Login/Sign Up</p>
     </div>
 </template>
 

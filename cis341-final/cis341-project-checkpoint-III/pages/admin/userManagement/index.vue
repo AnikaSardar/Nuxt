@@ -9,7 +9,6 @@
 useHead({
     title: 'User Management'
 })
-
 </script>
 
 <style scoped>

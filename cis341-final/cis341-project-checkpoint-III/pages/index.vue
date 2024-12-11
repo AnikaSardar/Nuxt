@@ -1,6 +1,8 @@
 <template>
     <div>
         <p>Homepage</p>
+        <!-- If user authenticated, add greetings -->
+        <p v-if="isAuthenticated()">Hello {{ getUserName() }}! </p>
     </div>
 </template>
 
@@ -8,6 +10,8 @@
 useHead({
     title: 'Home'
 })
+
+const { isAuthenticated, getUserName } = useAuth(); // Use the authentication state
 </script>
 
 <style scoped>

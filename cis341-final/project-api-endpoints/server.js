@@ -1,3 +1,8 @@
+/**
+ * For the following error -
+ * Error: listen EADDRINUSE: address already in use :::3333
+ * Use this command to kill port : npx kill-port 3333 
+*/ 
 const jsonServer = require('json-server');
 
 const server = jsonServer.create();

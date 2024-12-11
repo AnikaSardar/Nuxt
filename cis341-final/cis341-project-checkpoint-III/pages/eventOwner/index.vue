@@ -5,6 +5,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+    middleware: ['commonauth']
+})
 </script>
 
 <style scoped>

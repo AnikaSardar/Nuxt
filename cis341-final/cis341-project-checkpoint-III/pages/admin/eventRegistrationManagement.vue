@@ -6,6 +6,13 @@
 </template>
 
 <script setup>
+useHead({
+    title: 'Event Registration Management'
+})
+
+definePageMeta({
+    middleware: ['commonauth']
+})
 </script>
 
 <style scoped>
