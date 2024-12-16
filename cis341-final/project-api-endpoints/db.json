@@ -1,111 +1,141 @@
 {
-    "events": [
-      {
-        "id": 1,
-        "name": "Tech Conference 2024",
-        "date": "2024-05-20T09:00:00Z",
-        "location": "San Francisco, CA",
-        "description": "A conference for tech enthusiasts and professionals to learn about the latest innovations in technology.",
-        "owner_id": 1,
-        "type_id": 1,
-        "attendees": 53,
-        "price": 500
-      },
-      {
-        "id": 2,
-        "name": "Music Festival",
-        "date": "2024-06-15T12:00:00Z",
-        "location": "Los Angeles, CA",
-        "description": "A weekend music festival featuring popular bands and DJs.",
-        "owner_id": 2,
-        "type_id": 2,
-        "attendees": 5032,
-        "price": 25
-      },
-      {
-        "id": 3,
-        "name": "Art Expo 2024",
-        "date": "2024-07-01T10:00:00Z",
-        "location": "New York, NY",
-        "description": "An exhibition showcasing the work of contemporary artists from around the world.",
-        "owner_id": 3,
-        "type_id": 3,
-        "attendees": 227,
-        "price": 50
-      },
-      {
-        "id": 4,
-        "name": "Startup Pitch Competition",
-        "date": "2024-08-10T08:00:00Z",
-        "location": "Silicon Valley, CA",
-        "description": "An event where startups pitch their business ideas to potential investors and judges.",
-        "owner_id": 1,
-        "type_id": 4,
-        "attendees": 99,
-        "price": 0
-      },
-      {
-        "id": 5,
-        "name": "Tech Conference 2025",
-        "date": "2025-11-29T09:00:00Z",
-        "location": "San Francisco, CA",
-        "description": "A conference for tech enthusiasts and professionals to learn about the latest innovations in technology.",
-        "owner_id": 1,
-        "type_id": 1,
-        "attendees": 53,
-        "price": 500
-      }
-    ],
-    "events_feedback": [
-      {
-        "event_id": 1,
-        "user_id": 1,
-        "comment": "This was a great event!",
-        "submitted": "2024-01-15T10:00:00Z"
-      },
-      {
-        "event_id": 1,
-        "user_id": 2,
-        "comment": "Really boring!",
-        "submitted": "2024-01-15T10:00:00Z"
-      },
-      {
-        "event_id": 2,
-        "user_id": 2,
-        "comment": "Really boring!",
-        "submitted": "2024-01-15T10:00:00Z"
-      }
-    ],
-    "events_registered_users": [
-      {
-        "id": 1,
-        "username": "john_doe",
-        "password": "joepass",
-        "email": "john.doe@example.com",
-        "full_name": "John Doe",
-        "registration_date": "2024-01-15T10:00:00Z",
-        "role_id": 1
-      },
-      {
-        "id": 2,
-        "username": "sarah_lee",
-        "password": "sarahpass",
-        "email": "sarah.lee@example.com",
-        "full_name": "Sarah Lee",
-        "registration_date": "2024-03-12T14:00:00Z",
-        "role_id": 2
-      },
-      {
-        "id": 3,
-        "username": "mike_smith",
-        "password": "mikepass",
-        "email": "mike.smith@example.com",
-        "full_name": "Mike Smith",
-        "registration_date": "2024-05-08T09:30:00Z",
-        "role_id": 3
-      }
-    ],
-    "events_rsvp": [
+  "users": [
+    {
+      "id": 1,
+      "name": "Daniel Jackson",
+      "username": "danijackson456",
+      "role": "Event Owner"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "username": "smith456",
+      "role": "Event Owner"
+    },
+    {
+      "id": 3,
+      "name": "Emily Johnson",
+      "username": "emily456",
+      "role": "Registered Participant"
+    }
+  ],
+  "eventCategories": [
+    {
+      "id": 1,
+      "name": "Conference"
+    },
+    {
+      "id": 2,
+      "name": "Concert"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "name": "Tech Conference 2024",
+      "date": "2024-05-20T09:00:00Z",
+      "location": "San Francisco, CA",
+      "description": "A conference for tech enthusiasts and professionals to learn about the latest innovations in technology.",
+      "owner_id": 1,
+      "type_id": 1,
+      "attendees": 53,
+      "price": 500
+    },
+    {
+      "id": 2,
+      "name": "Music Festival",
+      "date": "2024-06-15T12:00:00Z",
+      "location": "Los Angeles, CA",
+      "description": "A weekend music festival featuring popular bands and DJs.",
+      "owner_id": 2,
+      "type_id": 2,
+      "attendees": 5032,
+      "price": 25
+    },
+    {
+      "id": 3,
+      "name": "Art Expo 2024",
+      "date": "2024-07-01T10:00:00Z",
+      "location": "New York, NY",
+      "description": "An exhibition showcasing the work of contemporary artists from around the world.",
+      "owner_id": 3,
+      "type_id": 3,
+      "attendees": 227,
+      "price": 50
+    },
+    {
+      "id": 4,
+      "name": "Startup Pitch Competition",
+      "date": "2024-08-10T08:00:00Z",
+      "location": "Silicon Valley, CA",
+      "description": "An event where startups pitch their business ideas to potential investors and judges.",
+      "owner_id": 1,
+      "type_id": 4,
+      "attendees": 99,
+      "price": 0
+    },
+    {
+      "id": 5,
+      "name": "Tech Conference 2025",
+      "date": "2025-11-29T09:00:00Z",
+      "location": "San Francisco, CA",
+      "description": "A conference for tech enthusiasts and professionals to learn about the latest innovations in technology.",
+      "owner_id": 1,
+      "type_id": 1,
+      "attendees": 53,
+      "price": 500
+    }
+  ],
+  "events_feedback": [
+    {
+      "event_id": 1,
+      "user_id": 1,
+      "comment": "This was a great event!",
+      "submitted": "2024-01-15T10:00:00Z"
+    },
+    {
+      "event_id": 1,
+      "user_id": 2,
+      "comment": "Really boring!",
+      "submitted": "2024-01-15T10:00:00Z"
+    },
+    {
+      "event_id": 2,
+      "user_id": 2,
+      "comment": "Really boring!",
+      "submitted": "2024-01-15T10:00:00Z"
+    }
+  ],
+  "events_registered_users": [
+    {
+      "id": 1,
+      "username": "john_doe",
+      "password": "joepass",
+      "email": "john.doe@example.com",
+      "full_name": "John Dom",
+      "registration_date": "2024-01-15T10:00:00Z",
+      "role_id": 1
+    },
+    {
+      "id": 2,
+      "username": "sarah_lee",
+      "password": "sarahpass",
+      "email": "sarah.lee@example.com",
+      "full_name": "Sarah Lee",
+      "registration_date": "2024-03-12T14:00:00Z",
+      "role_id": 2
+    },
+    {
+      "id": 3,
+      "username": "mike_smith",
+      "password": "mikepass",
+      "email": "mike.smith@example.com",
+      "full_name": "Mike Smith",
+      "registration_date": "2024-05-08T09:30:00Z",
+      "role_id": 3
+    }
+  ],
+  "events_rsvp": [
     {
       "id": 1,
       "user_id": 1,

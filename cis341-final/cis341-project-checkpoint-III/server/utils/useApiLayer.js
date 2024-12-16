@@ -1,37 +1,6 @@
 export const useApiLayer = () => {
     const baseUrl = 'http://localhost:3333';
   
-    // // fetch the list of users
-    // const getUsers = async () => {
-    //   try {
-    //     // retrieve data from API endpt using the base url
-    //     const users = await $fetch(`${baseUrl}/users`); // fetch all users from JSON Server
-    //     return users; // return raw user data
-    //   } catch (error) {
-    //    // if the request was not successful, throw the error.
-    //     throw createError({
-    //       statusCode: 500,
-    //       statusMessage: 'Failed to fetch users from JSON Server.',
-    //       data: error,
-    //     });
-    //   }
-    // };
-  
-    // // fetch details of a specific user
-    // const getUserDetails = async (id) => {
-    //   try {
-    //     const user = await $fetch(`${baseUrl}/users/${id}`); // fetch specific user by ID
-    //     return user; // return user details
-    //   } catch (error) {
-    //     // if the request was not successful, throw the error.
-    //     throw createError({
-    //       statusCode: 500,
-    //       statusMessage: `Failed to fetch user with ID ${id} from JSON Server.`,
-    //       data: error,
-    //     });
-    //   }
-    // };
-
   // fetch the list of events
   const getRegisteredUsers = async () => {
     try {
@@ -46,17 +15,6 @@ export const useApiLayer = () => {
     }
   };
   
-    // // fetch details of a specific registered user
-    // const getRegisteredUserDetailsOld = async (id) => {
-    //   const { data, error } = await $fetch(`${baseUrl}/events_registered_users/${id}`);
-    //   console.log(`getRegisteredUserDetails baseUrl: ${}`);
-    //   if (error) {
-    //     console.log("Error: ", log);
-    //     throw new Error(`Failed to fetch registered user with ID ${id}.`);
-    //   }
-    //   return data;
-    // };
-
     // fetch details of a specific registered user
     const getRegisteredUserDetails = async (id) => {
       try {
@@ -157,73 +115,6 @@ export const useApiLayer = () => {
     }
   };
 
-  // create RSVP for an event
-  const createRSVP = async (rsvp) => {
-    try {
-      const response = await $fetch(`${baseUrl}/events_rsvps`, {
-        method: 'POST',
-        body: rsvp, // Pass RSVP data to the JSON Server
-      });
-      return response; // Return the response from JSON Server
-    } catch (error) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Failed to create RSVP on JSON Server.',
-        data: error,
-      });
-    }
-  };
-
-  // submit feedback for an event
-  const submitFeedback = async (feedback) => {
-    try {
-      const response = await $fetch(`${baseUrl}/events_feedback`, {
-        method: 'POST',
-        body: feedback, // Pass feedback data to the JSON Server
-      });
-      return response; // Return the response from JSON Server
-    } catch (error) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Failed to submit feedback to JSON Server.',
-        data: error,
-      });
-    }
-  };
-
-    // fetch event feedback
-  const getEventFeedback = async (eventId) => {
-    try {
-      const feedback = await $fetch(`${baseUrl}/events_feedback?event_id=${eventId}`);
-      return feedback;
-    } catch (error) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: `Failed to fetch feedback for event with ID ${eventId} from JSON Server.`,
-        data: error,
-      });
-    }
-  };
-
-//   const fetchWithPatch = async (endpoint, data) => {
-//     try {
-//         const response = await fetch(endpoint, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(data),
-//         });
-//         if (!response.ok) {
-//             throw new Error(`HTTP error! status: ${response.status}`);
-//         }
-//         return await response.json();
-//     } catch (error) {
-//         return { error };
-//     }
-// };
-
-
 const fetchWithPatch = async (endpoint, data) => {
       try {
           const response = await fetch(endpoint, {
@@ -243,6 +134,6 @@ const fetchWithPatch = async (endpoint, data) => {
   };
 
     return {fetchWithPatch, updateRegisteredUser, getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
-      getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getRegisteredUserDetails
+      getEvents, getEventDetails, getRegisteredUserDetails
     };
   };
