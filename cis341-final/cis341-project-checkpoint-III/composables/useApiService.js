@@ -3,25 +3,31 @@ export const useApiService = () => {
     /* Define the necessary API handlers.*/
 
     // Fetch the list of users
-    const getUsers = async () => {
-      const { data: users, error } = await useFetch('/api/users');
-      return { users, error }; // Reactive data and error
-    };
+    // const getUsers = async () => {
+    //   const { data: users, error } = await useFetch('/api/users');
+    //   return { users, error }; // Reactive data and error
+    // };
   
-    // Fetch details of a specific user
-    const getUserDetails = async (id) => {
-      const { data: user, error } = await useFetch(`/api/users/${id}`);
-      return { user, error }; // Reactive data and error
-    };
+    // // Fetch details of a specific user
+    // const getUserDetails = async (id) => {
+    //   const { data: user, error } = await useFetch(`/api/users/${id}`);
+    //   return { user, error }; // Reactive data and error
+    // };
 
     const getRegisteredUsers = async () => {
       const { data: user, error } = await useFetch(`/api/eventsRegisteredUsers`);
-      return { registredUsers, error };
+      return { user, error };
     };
   
+    // const getRegisteredUserDetails = async (id) => {
+    //   const { data: user, error } = await useFetch(`/api/eventsRegisteredUsers/${id}`);
+    //   console.log(`USEAPISERVICE: DATA: ${JSON.stringify(user)}`);
+    //   return { user, error };
+    // };
+    // Fetch details of a specific registered user 
     const getRegisteredUserDetails = async (id) => {
       const { data: user, error } = await useFetch(`/api/eventsRegisteredUsers/${id}`);
-      return { registredUser, error };
+      return { user, error };
     };
   
 
@@ -79,5 +85,33 @@ export const useApiService = () => {
       return { user, error };
     };
 
-    return { getUsers, getUserDetails,  getRegisteredUsers, getRegisteredUserDetails, getEventCategories, getEventCategoryDetails,  getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getEventFeedbackDetails };
+    // Update details of a specific registered user
+    const updateRegisteredUser = async (id, userDetails) => {
+      const { data, error } = await useFetch(`/api/eventsRegisteredUsers/${id}`, {
+        method: 'PUT',
+        body: userDetails,
+      });
+      return { data, error };
+    };
+
+    const fetchWithPatch = async (endpoint, data) => {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        return { error };
+      }
+    };
+  
+
+    return { fetchWithPatch, updateRegisteredUser, getRegisteredUsers, getRegisteredUserDetails, getEventCategories, getEventCategoryDetails,  getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getEventFeedbackDetails };
   };

@@ -1,3 +1,4 @@
+
 export default defineEventHandler(async (event) => {
   // import the API layer for fetching data from the JSON server
   const { getUsers } = useApiLayer();

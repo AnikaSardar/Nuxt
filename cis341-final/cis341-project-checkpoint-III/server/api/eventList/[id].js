@@ -5,8 +5,8 @@ export default defineEventHandler(async (event) => {
   if (!parseInt(id)) {
     throw createError({ statusCode: 400, statusMessage: 'Invalid event ID.' });
   }
-  const e = await getEventDetails(id);
-  console.log(`TRY ${JSON.stringify(e)}`);
+  // const e = await getEventDetails(id);
+  // console.log(`TRY ${JSON.stringify(e)}`);
   try {
 
     return await getEventDetails(id);

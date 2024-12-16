@@ -1,50 +1,100 @@
 export const useApiLayer = () => {
     const baseUrl = 'http://localhost:3333';
   
-    // fetch the list of users
-    const getUsers = async () => {
-      try {
-        // retrieve data from API endpt using the base url
-        const users = await $fetch(`${baseUrl}/users`); // fetch all users from JSON Server
-        return users; // return raw user data
-      } catch (error) {
-       // if the request was not successful, throw the error.
-        throw createError({
-          statusCode: 500,
-          statusMessage: 'Failed to fetch users from JSON Server.',
-          data: error,
-        });
-      }
-    };
+    // // fetch the list of users
+    // const getUsers = async () => {
+    //   try {
+    //     // retrieve data from API endpt using the base url
+    //     const users = await $fetch(`${baseUrl}/users`); // fetch all users from JSON Server
+    //     return users; // return raw user data
+    //   } catch (error) {
+    //    // if the request was not successful, throw the error.
+    //     throw createError({
+    //       statusCode: 500,
+    //       statusMessage: 'Failed to fetch users from JSON Server.',
+    //       data: error,
+    //     });
+    //   }
+    // };
   
-    // fetch details of a specific user
-    const getUserDetails = async (id) => {
+    // // fetch details of a specific user
+    // const getUserDetails = async (id) => {
+    //   try {
+    //     const user = await $fetch(`${baseUrl}/users/${id}`); // fetch specific user by ID
+    //     return user; // return user details
+    //   } catch (error) {
+    //     // if the request was not successful, throw the error.
+    //     throw createError({
+    //       statusCode: 500,
+    //       statusMessage: `Failed to fetch user with ID ${id} from JSON Server.`,
+    //       data: error,
+    //     });
+    //   }
+    // };
+
+  // fetch the list of events
+  const getRegisteredUsers = async () => {
+    try {
+      const registered_users =  await $fetch(`${baseUrl}/events_registered_users`); // Fetch all events from JSON Server
+      return registered_users; // Return raw event data
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to fetch registered users.',
+        data: error,
+      });
+    }
+  };
+  
+    // // fetch details of a specific registered user
+    // const getRegisteredUserDetailsOld = async (id) => {
+    //   const { data, error } = await $fetch(`${baseUrl}/events_registered_users/${id}`);
+    //   console.log(`getRegisteredUserDetails baseUrl: ${}`);
+    //   if (error) {
+    //     console.log("Error: ", log);
+    //     throw new Error(`Failed to fetch registered user with ID ${id}.`);
+    //   }
+    //   return data;
+    // };
+
+    // fetch details of a specific registered user
+    const getRegisteredUserDetails = async (id) => {
       try {
-        const user = await $fetch(`${baseUrl}/users/${id}`); // fetch specific user by ID
-        return user; // return user details
+        // Fetch event details
+        const registered_user = await $fetch(`${baseUrl}/events_registered_users/${id}`);
+        // Fetch related data
+        const roleType_without_sanitize = await $fetch(`${baseUrl}/events_roles/${registered_user.id}`);
+        const roleType = roleType_without_sanitize.name.replace(/_/g, ' ');
+        //const eventOwner = await $fetch(`${baseUrl}/events_registered_users/${event.owner_id}`);
+        // Add related data to the event object
+        return { ...registered_user, roleType };
       } catch (error) {
-        // if the request was not successful, throw the error.
         throw createError({
           statusCode: 500,
-          statusMessage: `Failed to fetch user with ID ${id} from JSON Server.`,
+          statusMessage: `Failed to fetch event with ID ${id} from JSON Server.`,
           data: error,
         });
       }
     };
 
-    // fetchde list of registered users
-    const getRegisteredUsers = async () => {
-      const { data, error } = await useFetch('/api/events_registered_users');
-      if (error) throw new Error('Failed to fetch registered users.');
-      return data;
-    };
-  
-    // fetch details of a specific registered user
-    const getRegisteredUserDetails = async (id) => {
-      const { data, error } = await useFetch(`/api/events_registered_users/${id}`);
-      if (error) throw new Error(`Failed to fetch registered user with ID ${id}.`);
-      return data;
-    };
+    
+  // Update details of a specific registered user
+  const updateRegisteredUser = async (id, userDetails) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events_registered_users/${id}`, {
+        method: 'PUT', // Use PUT for updating existing resources
+        body: userDetails, // Send the updated user details in the body
+      });
+      return response; // Return the response from the server (the updated user data or success message)
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to update registered user with ID ${id}.`,
+        data: error,
+      });
+    }
+  };
+
   
     // fetch the list of event types
     const getEventCategories = async () => {
@@ -154,7 +204,45 @@ export const useApiLayer = () => {
       });
     }
   };
-    return { getUsers, getUserDetails,  getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
+
+//   const fetchWithPatch = async (endpoint, data) => {
+//     try {
+//         const response = await fetch(endpoint, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(data),
+//         });
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         return await response.json();
+//     } catch (error) {
+//         return { error };
+//     }
+// };
+
+
+const fetchWithPatch = async (endpoint, data) => {
+      try {
+          const response = await fetch(endpoint, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+          });
+          if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return await response.json();
+      } catch (error) {
+          return { error };
+      }
+  };
+
+    return {fetchWithPatch, updateRegisteredUser, getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
       getEvents, getEventDetails, createRSVP, submitFeedback, getEventFeedback, getRegisteredUserDetails
     };
   };
