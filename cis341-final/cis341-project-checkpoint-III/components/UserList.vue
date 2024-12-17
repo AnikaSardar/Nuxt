@@ -4,13 +4,14 @@
           <h1>User List</h1>
           <p v-if="status === 'pending'">Loading...</p>
           <div v-else>
+            <button @click="createUser" style="margin-bottom: 20px;">Create New User</button>
               <ul>
                   <li v-for="user in users" :key="user.id" >
-                      <NuxtLink :to="`/admin/userManagement/viewUserDetails/${user.id}`"> Name: {{ user.full_name }} |
+                      <NuxtLink :to="`/admin/userManagement/viewUserDetails/${user.id}`"> Name: {{ user?.full_name }} |
                           Username: {{
-                              user.username }} | Id: {{ user.id }} | Role: {{ user.role_id}} |</NuxtLink>
+                              user?.username }} | Id: {{ user?.id }} | Role: {{ user?.role_id}} |</NuxtLink>
                               <button @click="editUser(user.id)">Edit</button>
-                              <button @click="deleteUser(user.id)">Delete</button>
+                              <button @click="deleteUserById(user.id)">Delete</button>
                   </li>
 
               </ul>
@@ -27,48 +28,57 @@ import { useRouter } from 'vue-router'; // Import the useRouter hook
 const router = useRouter(); // Initialize the router instance
 
 const userDetails = ref([])
-const { getRegisteredUserDetails } = useApiService();
+const { getRegisteredUserDetails, deleteRegisteredUser, getRegisteredUsers } = useApiService();
 
-const response = await getRegisteredUserDetails(1);
-userDetails.value = response.user.value.roleType; 
+const users = ref([]);
+const error = ref(null);
+const status = ref('pending');
 
-console.log("Userdetails.value: ", userDetails.value);
-
-const nuxt = useNuxtApp();
-//const CACHE_KEY = 'users';
-const CACHE_KEY = 'eventsRegisteredUsers';
-const CACHE_TTL = 10 * 1000; // 10 seconds
-
-// Check cache and refetch if needed
-const { data: users, error, status } = await useFetch('/api/eventsRegisteredUsers', {
-key: CACHE_KEY,
-transform(input) {
-  return {
-    ...input,
-    fetchedAt: new Date(),
-  };
-},
-getCachedData: (key) => {
-  const data = nuxt.payload.data[key] || nuxt.static.data[key];
-  if (!data) return;
-
-  const expirationDate = new Date(data.fetchedAt);
-  expirationDate.setTime(expirationDate.getTime() + CACHE_TTL);
-  const isExpired = expirationDate.getTime() < Date.now();
-    if(isExpired) {
-      return
-    }
-
-    // Return cached data
-    return data;
-},
-});
+try {
+  const response = await getRegisteredUsers();
+  
+  // Access the events array inside the RefImpl
+  if (response.users && Array.isArray(response.users.value)) {
+    users.value = response.users.value; // Assign the actual array
+    status.value = 'success';
+  } else {
+    console.error('Unexpected response format:', response);
+    throw new Error('Invalid response format');
+  }
+} catch (err) {
+  console.error('Error fetching events:', err);
+  error.value = err;
+  status.value = 'error';
+}
 
 // Navigate to the edit page when the Edit button is clicked
 const editUser = (userId) => {
-  console.log("in here:")
+  console.log(`in editUser, userId: ${userId}`);
   router.push(`/admin/userManagement/editUserDetails/${userId}`);
 };
+
+// Navigate to the create page when the create button is clicked
+const createUser = () => {
+  console.log("in here:")
+  router.push(`/admin/userManagement/createUserDetails`);
+};
+
+const deleteUserById = async (userId) => {
+  if (!confirm(`Are you sure you want to delete the user with ID ${userId}?`)) {
+    return;
+  }
+
+  try {
+    await deleteRegisteredUser(userId); // Call the API to delete the user
+    alert('User deleted successfully!');
+    window.location.reload();
+   
+  } catch (err) {
+    console.error('Error deleting user:', err);
+    alert('Failed to delete user. Please try again.');
+  }
+};
+
 
 </script>
 

@@ -53,5 +53,6 @@ export const useAuth = () => {
     return token.value ? token.value.role : "none";
   };
 
+
   return { login, logout, isAuthenticated, getUserName, getRole };
 };

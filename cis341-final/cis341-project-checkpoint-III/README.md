@@ -73,3 +73,27 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Setup for Project Database 
+
+Please run project-api-endpoints before running this project.
+
+
+## Login Credentials
+
+You can also find the login credentials within db.json within the project-api-endpoints folder.
+
+ADMIN
+
+Username: john_doe
+Password: joepass
+
+EVENT OWNER
+
+Username: sarah_lee
+Password: sarahpass
+
+REGISTERED USER
+
+Username: mike_smith
+Password: mikepass

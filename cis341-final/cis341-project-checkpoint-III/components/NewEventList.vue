@@ -3,6 +3,7 @@
     <h1>Available Events</h1>
     <p v-if="status === 'pending'">Loading...</p>
     <div v-else>
+      <button @click="createUser" style="margin-bottom: 20px;">Create New Event</button>
       <div v-if="filteredEvents.length === 0">
         <p>No upcoming events available.</p>
       </div>
@@ -13,6 +14,8 @@
               <em>{{ event.name }} - @{{ event.location }}</em>
               <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
               <p>Attendees: {{ event.attendees }}</p>
+              <button @click="editEvent(event.id)">Edit</button>
+              <button @click="deleteEventById(event.id)">Delete</button>
             </NuxtLink>
           </li>
         </ul>

@@ -29,7 +29,7 @@
         <div>
           <p>Registration Date: {{ user.registration_date }}</p>
         </div>
-        <button type="submit">Save</button>
+        <button type="submit">Update</button>
       </form>
     </div>
 
