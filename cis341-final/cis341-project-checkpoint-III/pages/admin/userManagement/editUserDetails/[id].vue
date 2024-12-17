@@ -81,7 +81,6 @@ const saveUserDetails = async () => {
       console.error('Error updating user details:', response.error);
       alert('Failed to update user details. Please try again.');
     } else {
-      console.log('Response from server:', response);
       alert('User details updated successfully!');
     }
   } catch (err) {
@@ -93,7 +92,6 @@ const saveUserDetails = async () => {
 // Function to go back to the user list and refresh the page
 const goBackToUserList = () => {
   router.push('/admin/userManagement').then(() => {
-    // Force reload the page
     window.location.reload();
   });
 };

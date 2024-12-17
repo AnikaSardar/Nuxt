@@ -1,6 +1,5 @@
 export const useApiLayer = () => {
     const baseUrl = 'http://localhost:3333';
-
   // fetch the list of events
   const getRegisteredUsers = async () => {
     try {

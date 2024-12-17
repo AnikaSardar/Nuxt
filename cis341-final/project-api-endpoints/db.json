@@ -112,7 +112,7 @@
       "username": "john_doe",
       "password": "joepass",
       "email": "john.doe@example.com",
-      "full_name": "John Doe",
+      "full_name": "John Dom",
       "registration_date": "2024-01-15T10:00:00Z",
       "role_id": 1
     },
@@ -121,7 +121,7 @@
       "username": "sarah_lee",
       "password": "sarahpass",
       "email": "sarah.lee@example.com",
-      "full_name": "Sarah Lees",
+      "full_name": "Sarah Lee",
       "registration_date": "2024-03-12T14:00:00Z",
       "role_id": 2
     },
