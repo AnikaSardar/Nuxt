@@ -6,6 +6,12 @@ export const useApiService = () => {
       const { data: users, error } = await useFetch(`/api/eventsRegisteredUsers`);
       return { users, error };
     };
+
+
+    const getRegisteredUserRoles = async () => {
+      const { data: roles, error } = await useFetch(`/api/eventUserRoles`);
+      return { roles, error };
+    };
   
     // Fetch details of a specific registered user 
     const getRegisteredUserDetails = async (id) => {
@@ -194,6 +200,89 @@ export const useApiService = () => {
       }
     };
 
+    // Event Categories
+    // EVENTS
+  
+    // Update details of a specific event
+    const updateEventCategories = async (id, eventDetails) => {
+      const { data, error } = await useFetch(`/api/eventCategories/${id}`, {
+        method: 'PUT',
+        body: eventDetails,
+      });
+      return { data, error };
+    };
 
-    return { fetchWithDELETE, deleteRegisteredUser, createRegisteredUser, fetchWithPost, fetchWithPatch, updateRegisteredUser, getRegisteredUsers, getRegisteredUserDetails, getEventCategories, getEventCategoryDetails,  getEvents, getEventDetails, updateEvent, createEvent, fetchEventWithPut, fetchEventWithPost, deleteEvent, fetchEventWithDELETE };
+    const createEventCategories= async (eventDetails) => {
+      const { data, error } = await useFetch(`/api/eventCategories/eventCategoriesCreation`, {
+        method: 'POST',
+        body: eventDetails,
+      });
+      return { data, error };
+    };
+
+    const fetchEventCategoriesWithPut = async (endpoint, data) => {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        return { error };
+      }
+    };
+
+    const fetchEventCategoriesWithPost = async (endpoint, data) => {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        return { error };
+      }
+    };
+
+    const deleteEventCategories = async (eventId) => {
+      const { data, error } = await useFetch(`/api/eventCategories/${eventId}`, {
+        method: 'DELETE',
+      });
+      return { data, error };
+    };
+
+    const fetchEventCategoriesWithDELETE = async (endpoint, data) => {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        return { error };
+      }
+    };
+
+
+    return { fetchWithDELETE, deleteRegisteredUser, createRegisteredUser, fetchWithPost, fetchWithPatch, updateRegisteredUser, getRegisteredUsers, 
+      getRegisteredUserDetails, getEventCategories, getEventCategoryDetails, getEvents, getEventDetails, updateEvent, createEvent, fetchEventWithPut, 
+      fetchEventWithPost, deleteEvent, fetchEventWithDELETE, getRegisteredUserRoles, updateEventCategories, createEventCategories, deleteEventCategories,
+       fetchEventCategoriesWithPut, fetchEventCategoriesWithPost, fetchEventCategoriesWithDELETE };
   };

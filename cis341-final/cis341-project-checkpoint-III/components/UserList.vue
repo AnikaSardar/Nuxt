@@ -27,8 +27,7 @@
 import { useRouter } from 'vue-router'; // Import the useRouter hook
 const router = useRouter(); // Initialize the router instance
 
-const userDetails = ref([])
-const { getRegisteredUserDetails, deleteRegisteredUser, getRegisteredUsers } = useApiService();
+const { deleteRegisteredUser, getRegisteredUsers } = useApiService();
 
 const users = ref([]);
 const error = ref(null);

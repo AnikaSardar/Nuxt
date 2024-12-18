@@ -52,6 +52,19 @@ export const useApiLayer = () => {
     }
   };
 
+  const getRegisteredUserRoles = async () => {
+    try {
+      const eventUserRoles =  await $fetch(`${baseUrl}/events_roles`); // Fetch all events from JSON Server
+      return eventUserRoles; // Return raw event data
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to fetch registered users.',
+        data: error,
+      });
+    }
+  };
+
   const createRegisteredUser = async (userDetails) => {
     try {
       const response = await $fetch(`${baseUrl}/events_registered_users`, {
@@ -83,6 +96,7 @@ export const useApiLayer = () => {
       }
     };
 
+    
     // fetch details of a specific event type
     const getEventCategoryDetails = async (id) => {
       try {
@@ -110,7 +124,7 @@ export const useApiLayer = () => {
       });
     }
   };
-
+  
   // fetch details of a specific event
   const getEventDetails = async (id) => {
     try {
@@ -119,6 +133,7 @@ export const useApiLayer = () => {
       // Fetch related data
       const eventType = await $fetch(`${baseUrl}/events_types/${event.type_id}`);
       const eventOwner = await $fetch(`${baseUrl}/events_registered_users/${event.owner_id}`);
+
       // Add related data to the event object
       return { ...event, eventType, eventOwner };
     } catch (error) {
@@ -193,13 +208,119 @@ const fetchWithDelete = async (endpoint, data) => {
     } catch (error) {
       throw createError({
         statusCode: 500,
-        statusMessage: `Failed to update registered user with ID ${id}.`,
+        statusMessage: `Failed to delete registered user with ID ${id}.`,
         data: error,
       });
     }
   };
 
-    return {fetchWithDelete, deleteRegisteredUser,createRegisteredUser, fetchWithPost, fetchWithPatch, updateRegisteredUser, getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
-      getEvents, getEventDetails, getRegisteredUserDetails
+  // EVENTS
+
+   // Update details of a specific registered user
+   const updateEvent = async (id, eventDetails) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events/${id}`, {
+        method: 'PUT', // Use PUT for updating existing resources
+        body: eventDetails, // Send the updated user details in the body
+      });
+      return response; // Return the response from the server (the updated user data or success message)
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to update event with ID ${id}.`,
+        data: error,
+      });
+    }
+  };
+
+  const createEvent= async (eventDetails) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events`, {
+        method: 'POST', // Use POST for updating existing resources
+        body: eventDetails, // Send the updated user details in the body
+      });
+      return response; // Return the response from the server (the updated user data or success message)
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to create event with ID ${id}.`,
+        data: error,
+      });
+    }
+  };
+
+    // Update details of a specific registered user
+    const deleteEvent = async (id) => {
+      try {
+        const response = await $fetch(`${baseUrl}/events/${id}`, {
+          method: 'DELETE', // Use PUT for updating existing resources
+        });
+        return response; // Return the response from the server (the updated user data or success message)
+      } catch (error) {
+        throw createError({
+          statusCode: 500,
+          statusMessage: `Failed to delete registered user with ID ${id}.`,
+          data: error,
+        });
+      }
+    };
+  
+    // Event Categories 
+
+       // Update details of a specific registered user
+   const updateEventCategories = async (id, eventCategoryDetails) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events_types/${id}`, {
+        method: 'PUT', // Use PUT for updating existing resources
+        body: eventCategoryDetails, // Send the updated user details in the body
+      });
+      return response; // Return the response from the server (the updated user data or success message)
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to update event categories with ID ${id}.`,
+        data: error,
+      });
+    }
+  };
+
+  const createEventCategories= async (eventCategoryDetails) => {
+    try {
+      const response = await $fetch(`${baseUrl}/events_types`, {
+        method: 'POST', // Use POST for updating existing resources
+        body: eventCategoryDetails, // Send the updated user details in the body
+      });
+      return response; // Return the response from the server (the updated user data or success message)
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: `Failed to create event categories with ID ${id}.`,
+        data: error,
+      });
+    }
+  };
+
+    // Update details of a specific registered user
+    const deleteEventCategories = async (id) => {
+      try {
+        const response = await $fetch(`${baseUrl}/events_types/${id}`, {
+          method: 'DELETE', // Use PUT for updating existing resources
+        });
+        return response; // Return the response from the server (the updated user data or success message)
+      } catch (error) {
+        throw createError({
+          statusCode: 500,
+          statusMessage: `Failed to delete event categories with ID ${id}.`,
+          data: error,
+        });
+      }
+    };
+  
+
+
+    return {fetchWithDelete, deleteRegisteredUser,createRegisteredUser, fetchWithPost, fetchWithPatch, 
+      updateRegisteredUser, getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
+      getEvents, getEventDetails, getRegisteredUserDetails, createEvent, updateEvent, deleteEvent, 
+      getRegisteredUserRoles, updateEventCategories, createEventCategories, deleteEventCategories,
     };
   };

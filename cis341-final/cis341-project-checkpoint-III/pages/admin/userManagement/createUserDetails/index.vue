@@ -23,12 +23,10 @@
           <div>
             <label for="role">Role:</label>
             <select id="role" v-model="newUser.role_id" required>
-              <option value=1>Admin</option>
-              <option value=2>Event Owner</option>
-              <option value=3>Registered User</option>
+              <option v-for="type in newUserRoles" :key="type.id" :value="type.id">{{ type.name }}</option>
             </select>
           </div>
-          <button type="submit" @click="goBackToUserList">Save</button>
+          <button type="submit"  @click="goBackToUserList">Save</button>
         </form>
       </div>
   
@@ -48,7 +46,7 @@
 });
   
   const router = useRouter();
-  const { fetchWithPost } = useApiService(); // Replace this with your actual API call function
+  const { fetchWithPost, getRegisteredUserRoles } = useApiService(); // Replace this with your actual API call function
   
   const newUser = ref({
     id: '',
@@ -62,6 +60,7 @@
   
   const error = ref(null);
   const status = ref(null);
+  const newUserRoles = ref([]);
   
   const createUser = async () => {
     try {
@@ -69,14 +68,14 @@
       // Assign the current date as the registration_date
       newUser.value.registration_date = new Date().toISOString();
       newUser.value.id = generateUniqueId();
-      newUser.value.role_id = parseInt(newUser.value.role_id, 10); // Converts to integer
+
       const response = await fetchWithPost('/api/eventsRegisteredUsers/registeredUserCreation', newUser.value);
       if (response.error) {
         error.value = 'Failed to create user. Please try again.';
         console.error(response.error);
       } else {
         alert('User created successfully!');
-        //router.push('/admin/userManagement');
+        router.push('/admin/userManagement');
       }
     } catch (err) {
       error.value = 'An unexpected error occurred.';
@@ -89,6 +88,20 @@
   const goBackToUserList = () => {
     router.push('/admin/userManagement');
   };
+
+  const loadUserRole = async () => {
+    try {
+      const response = await getRegisteredUserRoles();
+      console.log("User roles: ", response.roles.value)
+      newUserRoles.value =  response.roles.value || [];
+    } catch (err) {
+      console.error('Failed to load user role types:', err);
+    }
+  };
+  
+  onMounted(() => {
+    loadUserRole();
+  });
   </script>
   
   <style scoped>

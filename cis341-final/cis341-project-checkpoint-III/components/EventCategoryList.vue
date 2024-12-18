@@ -1,54 +1,83 @@
 <template>
-    <div>
-        <h1>Event Category List</h1>
-        <p v-if="status === 'pending'">Loading...</p>
-        <ul v-else>
-            <li v-for="eventCategory in eventCategories.eventCategories" :key="eventCategory.id">
-                <NuxtLink :to="`/admin/eventCategoryManagement/viewEventCategoryDetails/${eventCategory.id}`"> Name: {{
-                    eventCategory.name }} | Id: {{ eventCategory.id }} |</NuxtLink>
-            </li>
+  <div>
+    <h1>Event Category List</h1>
+    <p v-if="status === 'pending'">Loading...</p>
+    <div v-else>
+      <button @click="createEventCategory" style="margin-bottom: 20px;">Create New Event Category</button>
+      <div v-if="eventCategories.length === 0">
+        <p>No event categories available.</p>
+      </div>
+      <div v-else>
+        <ul>
+          <li v-for="eventCategory in eventCategories" :key="eventCategory.id">
+            <NuxtLink :to="`/admin/eventCategoryManagement/viewEventCategoryDetails/${eventCategory.id}`">
+              Name: {{ eventCategory.name }} | ID: {{ eventCategory.id }}
+            </NuxtLink>
+            <button @click="editEventCategory(eventCategory.id)">Edit</button>
+            <button @click="deleteEventCategoryById(eventCategory.id)">Delete</button>
+          </li>
         </ul>
-        <p v-if="error">{{ error.statusMessage }}</p>
+      </div>
     </div>
-
+    <p v-if="error">{{ error.message }}</p>
+  </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router'; // Import the useRouter hook
 
-const nuxt = useNuxtApp();
-const CACHE_KEY = 'eventCategories';
-const CACHE_TTL = 10 * 1000; // 10 seconds
+const router = useRouter(); // Initialize the router instance
 
-// Check cache and refetch if needed
-const { data: eventCategories, error, status } = await useFetch('/api/eventCategories', {
-  key: CACHE_KEY,
-  transform(input) {
-    // Directly return the list of event categories with additional metadata
-    return {
-      eventCategories: input, // Raw API data
-      fetchedAt: new Date(), // Metadata for caching
-    };
-  },
-  getCachedData: (key) => {
-    // Retrieve cached data from Nuxt's payload or static data
-    const data = nuxt.payload.data[key] || nuxt.static.data[key];
-    if (!data) return null;
+const eventCategories = ref([]);
+const error = ref(null);
+const status = ref('pending');
+const { getEventCategories, deleteEventCategories } = useApiService();
 
-    // Check expiration
-    const expirationDate = new Date(data.fetchedAt);
-    expirationDate.setTime(expirationDate.getTime() + CACHE_TTL);
-    const isExpired = expirationDate.getTime() < Date.now();
+try {
+  const response = await getEventCategories();
+  
+  if (response.eventCategories && Array.isArray(response.eventCategories.value)) {
+    console.log(`response.eventCategories.value ${JSON.stringify(response.eventCategories.value)}`)
+    eventCategories.value = response.eventCategories.value; // Assign the actual array
+    status.value = 'success';
+  } else {
+    console.error('Unexpected response format:', response);
+    throw new Error('Invalid response format');
+  }
+} catch (err) {
+  console.error('Error fetching event categories:', err);
+  error.value = err;
+  status.value = 'error';
+}
 
-    if (isExpired) {
-      return null; // Force refetch if cache expired
-    }
+// Navigate to the create page when the Create button is clicked
+const createEventCategory = () => {
+  console.log("Navigating to create event category page");
+  router.push(`/admin/eventCategoryManagement/createEventCategoryDetails`);
+};
 
-    // Return valid cached data
-    return data;
-  },
-});
+// Navigate to the edit page when the Edit button is clicked
+const editEventCategory = (categoryId) => {
+  console.log(`Editing event category with ID: ${categoryId}`);
+  router.push(`/admin/eventCategoryManagement/editEventCategoryDetails/${categoryId}`);
+};
 
+// Delete an event category by ID
+const deleteEventCategoryById = async (categoryId) => {
+  if (!confirm(`Are you sure you want to delete the event category with ID ${categoryId}?`)) {
+    return;
+  }
 
+  try {
+    await deleteEventCategories(categoryId); // Call the API to delete the event category
+    alert('Event category deleted successfully!');
+    window.location.reload();
+  } catch (err) {
+    console.error('Error deleting event category:', err);
+    alert('Failed to delete event category. Please try again.');
+  }
+};
 </script>
 
 <style scoped>
