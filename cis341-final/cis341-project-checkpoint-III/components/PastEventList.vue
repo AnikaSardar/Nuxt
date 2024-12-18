@@ -11,7 +11,7 @@
         <li v-for="event in filteredEvents" :key="event.id">
           <NuxtLink :to="`/pastEvents/viewEventDetails/${event.id}`">
             <em>{{ event.name }} - @{{ event.location }}</em>
-            <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
+            <p>Date: {{ dateString(event.date) }}</p>
             <p>Attendees: {{ event.attendees }}</p>
           </NuxtLink>
         </li>
@@ -25,6 +25,7 @@
 import { ref, computed} from 'vue';
 
 const { getEvents } = useApiService();
+const { dateString } = useDateUtils();
 
 const events = ref([]);
 const status = ref('pending');

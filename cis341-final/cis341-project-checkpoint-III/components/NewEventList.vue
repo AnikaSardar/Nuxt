@@ -13,7 +13,7 @@
             <li v-for="event in filteredEvents" :key="event.id">
               <NuxtLink :to="`/newEvents/viewEventDetails/${event.id}`">
                 <em>{{ event.name }} - @{{ event.location }}</em>
-                <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
+                <p>Date: {{ dateString(event.date) }}</p>
                 <p>Attendees: {{ event.attendees }}</p>
               </NuxtLink>
               <button @click="editEvent(event.id)">Edit</button>
@@ -30,6 +30,8 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router'; // Import the useRouter hook
+
+const { dateString } = useDateUtils();
 
 const router = useRouter(); // Initialize the router instance
 
