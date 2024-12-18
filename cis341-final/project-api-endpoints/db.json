@@ -1,34 +1,4 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "name": "Daniel Jackson",
-      "username": "danijackson456",
-      "role": "Event Owner"
-    },
-    {
-      "id": 2,
-      "name": "Jane Smith",
-      "username": "smith456",
-      "role": "Event Owner"
-    },
-    {
-      "id": 3,
-      "name": "Emily Johnson",
-      "username": "emily456",
-      "role": "Registered Participant"
-    }
-  ],
-  "eventCategories": [
-    {
-      "id": 1,
-      "name": "Conference"
-    },
-    {
-      "id": 2,
-      "name": "Concert"
-    }
-  ],
   "events": [
     {
       "id": 1,
