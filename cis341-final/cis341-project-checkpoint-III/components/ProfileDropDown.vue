@@ -2,9 +2,7 @@
     <div class="dropdown">
         <button class="dropbtn">[Profile-icon dropdown]</button>
         <div class="dropdown-content">
-            <NuxtLink v-if="isAuthenticated()" to="/admin/profile">My Profile</NuxtLink>
             <NuxtLink v-if="isAdminOrEventOwner"  to="/admin/dashboard">Dashboard</NuxtLink>
-            <NuxtLink v-if="isAuthenticated()" to="/settings">Settings</NuxtLink>
             <!-- Dynamically change text for login/logout -->
             <NuxtLink v-if="isAuthenticated()" to="/login">Sign out</NuxtLink>
             <NuxtLink v-else to="/login">Login</NuxtLink>
