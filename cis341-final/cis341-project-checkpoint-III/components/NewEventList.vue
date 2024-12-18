@@ -36,27 +36,45 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { z } from 'zod';
 import { useRouter } from 'vue-router'; // Import the useRouter hook
-import { generateUniqueId } from "./utils/generateUniqueId";
+import { generateUniqueId } from './utils/generateUniqueId';
 
-const {getUserId} = useAuth();
+// Zod schema for event validation
+const eventSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().min(1, 'Event name is required').max(100, 'Event name is too long'),
+  description: z.string().min(10, 'Description must be at least 10 characters').max(500, 'Description is too long'),
+  location: z.string().min(1, 'Location is required'),
+  date: z.string().refine((date) => !isNaN(new Date(date).getTime()), 'Invalid date'),
+  price: z.number().min(0, 'Price must be a positive number').optional(),
+  attendees: z.number().min(0, 'Attendees count must be non-negative'),
+});
+
+const rsvpSchema = z.object({
+  id: z.string(),
+  user_id: z.number(),
+  event_id: z.number(),
+  registered: z.string().refine((date) => !isNaN(new Date(date).getTime()), 'Invalid registration date'),
+});
+
+const { getUserId } = useAuth();
 const router = useRouter();
 
 const events = ref([]);
 const error = ref(null);
 const status = ref('pending');
 const userId = getUserId(); //retrieving user Id from the session
-const rsvpStatus = ref({}); //disable rsvp button so that same user can't rsvp multiple times to the same event if successfully already rsvp-ed
+const rsvpStatus = ref({}); //disable rsvp button so that same user can't RSVP multiple times to the same event if successfully already RSVP-ed
 
 const { getEvents, deleteEvent, fetchWithPost, getRegisteredUserDetails, fetchWithPatch } = useApiService();
 
 const roleDetails = await getRegisteredUserDetails(userId);
 const role_id = roleDetails.user.value?.role_id || 0;
-//console.log("Roleeee is: ", role_id);
 
 try {
   const response = await getEvents();
-  
+
   if (response.events && Array.isArray(response.events.value)) {
     events.value = response.events.value; // Assign the actual array
     status.value = 'success';
@@ -78,7 +96,7 @@ const filteredEvents = computed(() => {
 
 // Navigate to the create page when the Create button is clicked
 const createEvent = () => {
-  console.log("Navigating to create event page");
+  console.log('Navigating to create event page');
   router.push(`/admin/eventList/newEvents/createEventDetails`);
 };
 
@@ -104,60 +122,59 @@ const deleteEventById = async (eventId) => {
   }
 };
 
-    // RSVP to an event
+// RSVP to an event
 const rsvpToEvent = async (eventId) => {
   try {
-    //await saveEventRSVP(rsvpData); // Save RSVP to the database
-    const rsvpData = ref({
+    const rsvpData = {
       id: generateUniqueId(),
       user_id: parseInt(userId, 10),
       event_id: eventId,
       registered: new Date().toISOString(),
-      });
-    const response = await fetchWithPost('/api/eventsRegisteredUsers/registeredUserRSVP', rsvpData.value);
-      if (response.error) {
-        error.value = 'Failed to RSVP user. Please try again.';
-        console.error(response.error);
-      } else {
-        alert('Successfully RSVP’d to the event!');
-        rsvpStatus.value[eventId] = true; // Mark event as RSVP'd
-        router.push('/admin/eventList/newEvents');
-        status.value = 'success';
+    };
 
-        //increment event attendees
-        const event = events.value.find((e) => e.id === eventId);
-        if (event) {
-          event.attendees += 1;
-          // post the event so that DB also holds the correct number of attendees
-          //const saveEventDetails = async () => {
-            try {
-                // const updatedEvent = {
-                //   ...event.value,
-                //   date: new Date(`${event.value.date}T09:00:00Z`).toISOString(),
-                // };
-            
-                const endpoint = `/api/eventList/${eventId}`;
-                const response = await fetchWithPatch(endpoint, event);
-            
-                if (response.error) {
-                  console.log('Failed to update event details. Please try again.');
-                } else {
-                  console.log('Event details updated successfully!');
-                }
-              } catch (err) {
-                alert('An unexpected error occurred.');
-              }
-            //};
+    // Validate RSVP data
+    rsvpSchema.parse(rsvpData);
+
+    const response = await fetchWithPost('/api/eventsRegisteredUsers/registeredUserRSVP', rsvpData);
+    if (response.error) {
+      error.value = 'Failed to RSVP user. Please try again.';
+      console.error(response.error);
+    } else {
+      alert('Successfully RSVP’d to the event!');
+      rsvpStatus.value[eventId] = true; // Mark event as RSVP'd
+      router.push('/admin/eventList/newEvents');
+      status.value = 'success';
+
+      // Increment event attendees
+      const event = events.value.find((e) => e.id === eventId);
+      if (event) {
+        event.attendees += 1;
+
+        // Validate the updated event data
+        eventSchema.parse(event);
+
+        try {
+          const endpoint = `/api/eventList/${eventId}`;
+          const response = await fetchWithPatch(endpoint, event);
+
+          if (response.error) {
+            console.log('Failed to update event details. Please try again.');
+          } else {
+            console.log('Event details updated successfully!');
+          }
+        } catch (err) {
+          alert('An unexpected error occurred.');
         }
       }
-    } catch (err) {
-      error.value = 'An unexpected error occurred.';
-      console.error(err);
-      status.value = 'error';
-    } finally {
-      status.value = null;
     }
-  };
+  } catch (err) {
+    error.value = err.message || 'An unexpected error occurred.';
+    console.error(err);
+    status.value = 'error';
+  } finally {
+    status.value = null;
+  }
+};
 </script>
 
 <style scoped>

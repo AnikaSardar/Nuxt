@@ -11,59 +11,63 @@
 
     <p v-if="error">{{ error.statusMessage }}</p>
 
-    <!--<NuxtLink to="/admin/userManagement">Back to User List</NuxtLink>-->
-        <!-- Replaced NuxtLink -->
     <button @click="goBackToUserList" style="margin-top: 10px;">Back to User List</button>
-
   </div>
-
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { z } from 'zod'; // Import Zod for validation
+
 useHead({
-    title: 'View User Details'
-})
+  title: 'View User Details'
+});
 
 const route = useRoute();
-const router = useRouter(); // Initialize the router
-const { data: user, error, pending } = await useFetch(`/api/eventsRegisteredUsers/${route.params.id}`);
+const router = useRouter();
+const status = ref('pending');
+const user = ref(null);
+const error = ref(null);
 
-console.log("Debug: Did not throw error");
-console.log(`DATA: ${JSON.stringify(user)}`);
+// Define Zod schema for user validation
+const userSchema = z.object({
+  id: z.number(),
+  full_name: z.string().min(1, 'Full name is required'),
+  username: z.string().min(3, 'Username must be at least 3 characters long'),
+  roleType: z.string().min(1, 'Role is required'),
+});
 
-if (error.value) {
-console.log(`DATA: ${JSON.stringify(user)}`);
-}
+const fetchUserData = async () => {
+  try {
+    const response = await fetch(`/api/eventsRegisteredUsers/${route.params.id}`);
+    const data = await response.json();
 
-// const nuxt = useNuxtApp();
-// const route = useRoute();
-// const userId = route.params.id;
-// const CACHE_KEY = `user-${userId}`;
-// const CACHE_TTL = 10 * 1000; // 10 seconds
+    // Validate the fetched data using Zod
+    const parsedUser = userSchema.parse(data);
 
-// Check cache and refetch if needed
-// const { data: user, error, status } = await useFetch(`/api/eventsRegisteredUsers/${userId}`, {
-//   key: CACHE_KEY,
-//   transform(input) {
-//     return {
-//       ...input,
-//       fetchedAt: new Date(),
-//     };
-//   },
-//   getCachedData: (key) => {
-//     const data = nuxt.payload.data[key] || nuxt.static.data[key];
-//     if (!data) return null;
+    user.value = parsedUser;
+    status.value = null; // Data has been fetched and validated
+  } catch (err) {
+    status.value = null; // Data fetching done
+    if (err instanceof z.ZodError) {
+      error.value = 'Invalid user data received.';
+      console.error('Zod validation errors:', err.errors);
+    } else {
+      error.value = 'An error occurred while fetching user data.';
+      console.error(err);
+    }
+  }
+};
 
-//     const expirationDate = new Date(data.fetchedAt);
-//     expirationDate.setTime(expirationDate.getTime() + CACHE_TTL);
-//     return expirationDate.getTime() > Date.now() ? data : null;
-//   },
-// });
+// Fetch user data when the component is mounted
+onMounted(() => {
+  fetchUserData();
+});
 
 // Function to go back to the user list and refresh the page
 const goBackToUserList = () => {
   router.push('/admin/userManagement').then(() => {
-    // Force reload the page
     window.location.reload();
   });
 };
@@ -83,5 +87,4 @@ button {
 button:hover {
   background-color: #0056b3;
 }
-
 </style>
