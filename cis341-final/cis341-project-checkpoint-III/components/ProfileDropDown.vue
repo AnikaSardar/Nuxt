@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown">
-        <button class="dropbtn">[Profile-icon dropdown]</button>
+        <button class="dropbtn">My Profile Options</button>
         <div class="dropdown-content">
             <NuxtLink v-if="isAdminOrEventOwner"  to="/admin/dashboard">Dashboard</NuxtLink>
             <!-- Dynamically change text for login/logout -->

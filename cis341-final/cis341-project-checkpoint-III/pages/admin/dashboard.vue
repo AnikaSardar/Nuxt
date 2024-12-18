@@ -9,6 +9,7 @@
 useHead({
     title: 'Dashboard'
 })
+
 definePageMeta({
     middleware: ['commonauth']
 })

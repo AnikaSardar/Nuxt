@@ -33,7 +33,7 @@
         <div>
           <p>Registration Date: {{ user.registration_date }}</p>
         </div>
-        <button type="submit">Update</button>
+        <button type="submit" @click="goBackToUserList">Update</button>
       </form>
     </div>
 
