@@ -16,7 +16,7 @@
         <em v-if="isRegisteredUser">
           Excited for attending new events? Let's go!
         </em>
-        <button v-else @click="navigateTo('login')" class="btn secondary">
+        <button v-if="!isAdminOrEventOwner && !isRegisteredUser" @click="navigateTo('login')" class="btn secondary">
           Login to Get Started
         </button>
       </div>
