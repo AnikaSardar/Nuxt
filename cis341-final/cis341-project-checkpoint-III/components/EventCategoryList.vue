@@ -3,6 +3,7 @@
     <h1>Event Category List</h1>
     <p v-if="status === 'pending'">Loading...</p>
     <div v-else>
+      <!-- Create functionality -->
       <button @click="createEventCategory" style="margin-bottom: 20px;">Create New Event Category</button>
       <div v-if="eventCategories.length === 0">
         <p>No event categories available.</p>
@@ -13,6 +14,7 @@
             <NuxtLink :to="`/admin/eventCategoryManagement/viewEventCategoryDetails/${eventCategory.id}`">
               Name: {{ eventCategory.name }} | ID: {{ eventCategory.id }}
             </NuxtLink>
+            <!-- Edit and delete functionality -->
             <button @click="editEventCategory(eventCategory.id)">Edit</button>
             <button @click="deleteEventCategoryById(eventCategory.id)">Delete</button>
           </li>

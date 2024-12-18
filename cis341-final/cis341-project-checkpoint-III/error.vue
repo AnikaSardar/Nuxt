@@ -7,6 +7,7 @@
 </template>
 
 <script setup>
+// Props for error 
     const props = defineProps (['error']) // error obj
     const errorMessage = computed(() => {
         

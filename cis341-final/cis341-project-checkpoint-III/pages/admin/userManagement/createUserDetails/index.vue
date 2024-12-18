@@ -31,7 +31,7 @@
           </select>
           <p v-if="validationErrors.role_id" class="error">{{ validationErrors.role_id }}</p>
         </div>
-        <button type="submit">Save</button>
+        <button type="submit" @click="goBackToUserList">Save</button>
       </form>
     </div>
 
@@ -65,6 +65,7 @@ const newUserSchema = z.object({
   role_id: z.number(),
 });
 
+// reactive new user
 const newUser = ref({
   id: '',
   username: '',
@@ -75,11 +76,13 @@ const newUser = ref({
   role_id: '',
 });
 
+// initialize err, status, and roles variables
 const error = ref(null);
 const status = ref(null);
 const validationErrors = ref({});
 const newUserRoles = ref([]);
 
+// create the user
 const createUser = async () => {
   try {
     status.value = 'pending';
@@ -117,10 +120,12 @@ const createUser = async () => {
   }
 };
 
+// nav to userList
 const goBackToUserList = () => {
   router.push('/admin/userManagement');
 };
 
+// load the user role for mount
 const loadUserRole = async () => {
   try {
     const response = await getRegisteredUserRoles();
@@ -131,6 +136,7 @@ const loadUserRole = async () => {
   }
 };
 
+// mount the user role
 onMounted(() => {
   loadUserRole();
 });

@@ -13,7 +13,7 @@
         <button type="submit" @click="goBackToCategoryList">Update Category</button>
       </form>
     </div>
-  
+
     <p v-if="error">{{ error.message }}</p>
     <button @click="goBackToCategoryList" style="margin-top: 10px;">Back to Category List</button>
   </div>
@@ -89,38 +89,38 @@ const goBackToCategoryList = () => {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-label {
-  font-weight: bold;
-}
+  label {
+    font-weight: bold;
+  }
 
-input,
-textarea {
-  padding: 5px;
-  font-size: 16px;
-}
+  input,
+  textarea {
+    padding: 5px;
+    font-size: 16px;
+  }
 
-button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
+  button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
 
-button:hover {
-  background-color: #0056b3;
-}
+  button:hover {
+    background-color: #0056b3;
+  }
 
-p {
-  font-size: 14px;
-  color: red;
-}
+  p {
+    font-size: 14px;
+    color: red;
+  }
 </style>

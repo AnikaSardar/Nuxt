@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    // session update on role
     await session.update({ role: eventRole || "admin" });
 
     return {
@@ -49,6 +50,7 @@ export default defineEventHandler(async (event) => {
   }
 });
 
+// return the event user role
 function getEventRole(events_roles, user) {
   const role = events_roles.find(role => role.id === user.id);
   return role ? role.name.toLowerCase() : null; // Return the role name or null if not found

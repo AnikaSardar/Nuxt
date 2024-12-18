@@ -1,5 +1,5 @@
 export default async (event, roles) => {
-  
+  // define run time config and fetch auth cookie
   const runtimeConfig = useRuntimeConfig();
   const authCookie = getCookie(event, runtimeConfig.authCookieName);
 

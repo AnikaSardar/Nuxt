@@ -2,10 +2,6 @@ export default defineEventHandler(async (event) => {
     // Extract `id` parameter from the route (if applicable)
     const { id } = event.context.params || {};
   
-    console.log("Debug: Inside defineEventHandler for RSVP");
-    console.log("Request method:", event.node.req.method);
-    //console.log("Id extracted is: ", id);
-  
     // Import the API layer
     const { 
       getRegisteredUserDetails,  

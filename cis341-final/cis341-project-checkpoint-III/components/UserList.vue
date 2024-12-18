@@ -62,6 +62,7 @@ const createUser = () => {
   router.push(`/admin/userManagement/createUserDetails`);
 };
 
+// Confirm deletion
 const deleteUserById = async (userId) => {
   if (!confirm(`Are you sure you want to delete the user with ID ${userId}?`)) {
     return;

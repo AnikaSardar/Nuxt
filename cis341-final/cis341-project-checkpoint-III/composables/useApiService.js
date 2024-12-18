@@ -2,12 +2,13 @@
 export const useApiService = () => {
     /* Define the necessary API handlers.*/
 
+    // retrieve registered users from the server/api route
     const getRegisteredUsers = async () => {
       const { data: users, error } = await useFetch(`/api/eventsRegisteredUsers`);
       return { users, error };
     };
 
-
+    // retrieve registered user roles from the server/api route
     const getRegisteredUserRoles = async () => {
       const { data: roles, error } = await useFetch(`/api/eventUserRoles`);
       return { roles, error };
@@ -53,6 +54,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // Create a Registered User
     const createRegisteredUser = async (userDetails) => {
       const { data, error } = await useFetch(`/api/eventsRegisteredUsers/registeredUserCreation`, {
         method: 'POST',
@@ -61,6 +63,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // Create Event RSVP (for incrementing RSVP attendees)
     const createEventRSVP = async (rsvpDetails) => {
       const { data, error } = await useFetch(`/api/eventsRegisteredUsers/registeredUserRSVP`, {
         method: 'POST',
@@ -69,7 +72,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
-    //updates attendees
+    // updates attendees
     const updateEventRSVP = async (id, eventDetails) => {
       const { data, error } = await useFetch(`/api/eventList/${id}`, {
         method: 'PUT',
@@ -78,6 +81,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // update func
     const fetchWithPatch = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -96,6 +100,7 @@ export const useApiService = () => {
       }
     };
 
+    // fetch func
     const fetchWithPost = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -114,6 +119,7 @@ export const useApiService = () => {
       }
     };
 
+    // delete registered user
     const deleteRegisteredUser = async (userId) => {
       const { data, error } = await useFetch(`/api/eventsRegisteredUsers/${userId}`, {
         method: 'DELETE',
@@ -121,6 +127,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // delete func
     const fetchWithDELETE = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -138,8 +145,6 @@ export const useApiService = () => {
       }
     };
 
-  // EVENTS
-  
     // Update details of a specific event
     const updateEvent = async (id, eventDetails) => {
       const { data, error } = await useFetch(`/api/eventList/${id}`, {
@@ -149,6 +154,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // create event details
     const createEvent= async (eventDetails) => {
       const { data, error } = await useFetch(`/api/eventList/newEventCreation`, {
         method: 'POST',
@@ -157,6 +163,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // update func
     const fetchEventWithPut = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -175,6 +182,7 @@ export const useApiService = () => {
       }
     };
 
+    // create func
     const fetchEventWithPost = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -193,6 +201,7 @@ export const useApiService = () => {
       }
     };
 
+    // delete event
     const deleteEvent = async (eventId) => {
       const { data, error } = await useFetch(`/api/eventList/${eventId}`, {
         method: 'DELETE',
@@ -200,6 +209,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // delete func
     const fetchEventWithDELETE = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -217,10 +227,7 @@ export const useApiService = () => {
       }
     };
 
-    // Event Categories
-    // EVENTS
-  
-    // Update details of a specific event
+    // Update details of a specific event type
     const updateEventCategories = async (id, eventDetails) => {
       const { data, error } = await useFetch(`/api/eventCategories/${id}`, {
         method: 'PUT',
@@ -229,6 +236,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // create a new event type
     const createEventCategories= async (eventDetails) => {
       const { data, error } = await useFetch(`/api/eventCategories/eventCategoriesCreation`, {
         method: 'POST',
@@ -237,6 +245,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // update func
     const fetchEventCategoriesWithPut = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -255,6 +264,7 @@ export const useApiService = () => {
       }
     };
 
+    // create func
     const fetchEventCategoriesWithPost = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -273,6 +283,7 @@ export const useApiService = () => {
       }
     };
 
+    // delete event types
     const deleteEventCategories = async (eventId) => {
       const { data, error } = await useFetch(`/api/eventCategories/${eventId}`, {
         method: 'DELETE',
@@ -280,6 +291,7 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    // delete func
     const fetchEventCategoriesWithDELETE = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -296,9 +308,6 @@ export const useApiService = () => {
         return { error };
       }
     };
-
-    
-
 
     return { updateEventRSVP, createEventRSVP, fetchWithDELETE, deleteRegisteredUser, createRegisteredUser, fetchWithPost, fetchWithPatch, updateRegisteredUser, getRegisteredUsers, 
       getRegisteredUserDetails, getEventCategories, getEventCategoryDetails, getEvents, getEventDetails, updateEvent, createEvent, fetchEventWithPut, 

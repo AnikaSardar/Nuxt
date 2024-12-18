@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- TODO: ADD CSS/USE BOOTSTRAP-->
         <aside class="nav-bar">
             <nav>
                 <Header />

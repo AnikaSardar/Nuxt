@@ -15,6 +15,8 @@
                   <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
                   <p>Attendees: {{ event.attendees }}</p>
                 </NuxtLink>
+
+                <!-- Delete func  -->
                 <button @click="deleteEventById(event.id)">Delete Attendees</button>
               </li>
             </ul>
@@ -43,7 +45,6 @@
   
   const roleDetails = await getRegisteredUserDetails(userId);
   const role_id = roleDetails.user.value?.role_id || 0;
-  //console.log("Roleeee is: ", role_id);
   
   try {
     const response = await getEvents();
@@ -107,14 +108,7 @@
           const event = events.value.find((e) => e.id === eventId);
           if (event) {
             event.attendees += 1;
-            // post the event so that DB also holds the correct number of attendees
-            //const saveEventDetails = async () => {
               try {
-                  // const updatedEvent = {
-                  //   ...event.value,
-                  //   date: new Date(`${event.value.date}T09:00:00Z`).toISOString(),
-                  // };
-              
                   const endpoint = `/api/eventList/${eventId}`;
                   const response = await fetchWithPatch(endpoint, event);
               
@@ -126,7 +120,6 @@
                 } catch (err) {
                   alert('An unexpected error occurred.');
                 }
-              //};
           }
         }
       } catch (err) {

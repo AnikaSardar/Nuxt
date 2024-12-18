@@ -1,5 +1,3 @@
-// utils/generateUniqueId.js
-
 /**
  * Generates a unique 4-digit ID (between 1000 and 9999).
  * @returns {number} The generated 4-digit unique ID.

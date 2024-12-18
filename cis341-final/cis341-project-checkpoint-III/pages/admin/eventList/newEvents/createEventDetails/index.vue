@@ -5,6 +5,7 @@
       Creating new event... We'll redirect you to the event list once we're done.
     </p>
     <div v-else>
+      <!-- Prevent submit and validation checks for the fields -->
       <form @submit.prevent="createEvent">
         <div>
           <label for="name">Event Name:</label>
@@ -50,10 +51,9 @@
           </select>
           <p v-if="validationErrors.owner_id" class="error-message">{{ validationErrors.owner_id }}</p>
         </div>
-        <button type="submit">Save</button>
+        <button type="submit" @click="goBackToEventList">Save</button>
       </form>
     </div>
-
     <button @click="goBackToEventList" style="margin-top: 10px;">Back to Event List</button>
   </div>
 </template>
@@ -81,6 +81,7 @@ const eventSchema = z.object({
 const router = useRouter();
 const { fetchWithPost, getEventCategories, getRegisteredUsers } = useApiService();
 
+// hold reactive properties for creation
 const newEvent = ref({
   id: '',
   name: '',
@@ -93,12 +94,14 @@ const newEvent = ref({
   owner_id: '',
 });
 
+// initialize ref var
 const validationErrors = ref({});
 const today = new Date().toISOString().split('T')[0];
 const status = ref(null);
 const eventTypes = ref([]);
 const eventOwners = ref([]);
 
+// validate event creation fields
 const validateEvent = () => {
   validationErrors.value = {};
   try {
@@ -113,9 +116,11 @@ const validateEvent = () => {
   }
 };
 
+// create event if everything works as expected
 const createEvent = async () => {
   if (!validateEvent()) return;
 
+  // add error handling
   try {
     status.value = 'pending';
     const response = await fetchWithPost('/api/eventList/eventCreation', newEvent.value);
@@ -134,10 +139,12 @@ const createEvent = async () => {
   }
 };
 
+// go back tp event list once done
 const goBackToEventList = () => {
   router.push('/admin/eventList/newEvents');
 };
 
+//load event types 
 const loadEventTypes = async () => {
   try {
     const response = await getEventCategories();
@@ -147,6 +154,8 @@ const loadEventTypes = async () => {
   }
 };
 
+
+// load event owner
 const loadEventOwner = async () => {
   try {
     const response = await getRegisteredUsers();
@@ -156,6 +165,7 @@ const loadEventOwner = async () => {
   }
 };
 
+// on mount load both event types and event owners
 onMounted(() => {
   loadEventTypes();
   loadEventOwner();

@@ -145,6 +145,7 @@ export const useApiLayer = () => {
     }
   };
 
+  // update func
 const fetchWithPatch = async (endpoint, data) => {
       try {
           const response = await fetch(endpoint, {
@@ -163,6 +164,7 @@ const fetchWithPatch = async (endpoint, data) => {
       }
   };
 
+  // create func
   const fetchWithPost = async (endpoint, data) => {
     try {
         const response = await fetch(endpoint, {
@@ -181,6 +183,7 @@ const fetchWithPatch = async (endpoint, data) => {
     }
 };
 
+// delete func
 const fetchWithDelete = async (endpoint, data) => {
   try {
       const response = await fetch(endpoint, {
@@ -214,8 +217,6 @@ const fetchWithDelete = async (endpoint, data) => {
     }
   };
 
-  // EVENTS
-
    // Update details of a specific registered user
    const updateEvent = async (id, eventDetails) => {
     try {
@@ -233,11 +234,12 @@ const fetchWithDelete = async (endpoint, data) => {
     }
   };
 
+  // create events
   const createEvent= async (eventDetails) => {
     try {
       const response = await $fetch(`${baseUrl}/events`, {
         method: 'POST', // Use POST for updating existing resources
-        body: eventDetails, // Send the updated user details in the body
+        body: eventDetails, // Send the updated event details in the body
       });
       return response; // Return the response from the server (the updated user data or success message)
     } catch (error) {
@@ -253,9 +255,9 @@ const fetchWithDelete = async (endpoint, data) => {
     const deleteEvent = async (id) => {
       try {
         const response = await $fetch(`${baseUrl}/events/${id}`, {
-          method: 'DELETE', // Use PUT for updating existing resources
+          method: 'DELETE', // Use DELTE for deleting resources
         });
-        return response; // Return the response from the server (the updated user data or success message)
+        return response; // Return the response from the server (the deleted event data or success message)
       } catch (error) {
         throw createError({
           statusCode: 500,
@@ -265,16 +267,14 @@ const fetchWithDelete = async (endpoint, data) => {
       }
     };
   
-    // Event Categories 
-
-       // Update details of a specific registered user
+       // Update details of a specific event type
    const updateEventCategories = async (id, eventCategoryDetails) => {
     try {
       const response = await $fetch(`${baseUrl}/events_types/${id}`, {
         method: 'PUT', // Use PUT for updating existing resources
-        body: eventCategoryDetails, // Send the updated user details in the body
+        body: eventCategoryDetails, // Send the updated event type details in the body
       });
-      return response; // Return the response from the server (the updated user data or success message)
+      return response; // Return the response from the server (the updated user type data or success message)
     } catch (error) {
       throw createError({
         statusCode: 500,
@@ -284,6 +284,7 @@ const fetchWithDelete = async (endpoint, data) => {
     }
   };
 
+  // create event types
   const createEventCategories= async (eventCategoryDetails) => {
     try {
       const response = await $fetch(`${baseUrl}/events_types`, {
@@ -316,6 +317,7 @@ const fetchWithDelete = async (endpoint, data) => {
       }
     };
 
+    // create event rsvp
     const createEventRSVP= async (rsvpDetails) => {
       try {
         const response = await $fetch(`${baseUrl}/events_rsvp`, {
@@ -332,6 +334,7 @@ const fetchWithDelete = async (endpoint, data) => {
       }
     };
   
+    // update event rsvp
     const updateEventRSVP = async (id, eventDetails) => {
       try {
         const response = await $fetch(`${baseUrl}/events/${id}`, {

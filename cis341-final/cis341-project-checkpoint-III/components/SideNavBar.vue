@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- TODO: ADD CSS/USE BOOTSTRAP, for toggle-able hamburger menu-->
         <aside class="sidebar">
             <nav>
                 <ul>

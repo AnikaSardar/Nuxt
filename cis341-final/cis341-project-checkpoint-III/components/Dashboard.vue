@@ -2,7 +2,6 @@
     <div>
         <div>
             <ul>
-                <!-- Hardcoding the link for now; going to make it generic links population using v-for and props -->
                 <li v-if="isAdmin"><NuxtLink to="/admin/userManagement">Manage Users</NuxtLink></li>
                 <li v-if="isAdmin"><NuxtLink to="/admin/eventCategoryManagement">Manage Event Types</NuxtLink></li>
                 <li><NuxtLink to="/admin/eventList">Manage Events</NuxtLink></li>

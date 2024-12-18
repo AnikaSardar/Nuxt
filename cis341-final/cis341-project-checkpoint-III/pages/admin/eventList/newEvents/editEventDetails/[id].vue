@@ -3,6 +3,7 @@
     <h1>Edit Event Details</h1>
     <p v-if="status === 'pending'">Loading event details...</p>
     <div v-else>
+      <!-- Prevent submit and validation checks for the edit fields -->
       <form @submit.prevent="saveEventDetails">
         <div>
           <label for="name">Event Name:</label>
@@ -42,7 +43,7 @@
           <label for="eventType">Event Type:</label>
           <input id="eventType" v-model="event.eventType.name" type="text" disabled />
         </div>
-        <button type="submit">Update Event</button>
+        <button type="submit" @click="goBackToEventList">Update Event</button>
       </form>
     </div>
 
@@ -68,6 +69,7 @@ const { data: event, error, pending: status } = await useFetch(`/api/eventList/$
 
 const today = new Date().toISOString().split('T')[0];
 
+// reactive event
 const editableEvent = ref({
   name: event.value?.name || '',
   description: event.value?.description || '',
@@ -79,6 +81,7 @@ const editableEvent = ref({
 
 const errors = ref({});
 
+// schema for zod
 const eventSchema = z.object({
   name: z.string().min(1, { message: 'Event name is required.' }),
   description: z.string().min(1, { message: 'Description is required.' }),
@@ -90,6 +93,7 @@ const eventSchema = z.object({
   attendees: z.number().int().nonnegative({ message: 'Attendees must be a non-negative integer.' }),
 });
 
+// validate form logic
 const validateForm = () => {
   const validation = eventSchema.safeParse(editableEvent.value);
 
@@ -105,12 +109,13 @@ const validateForm = () => {
   return true;
 };
 
+// save event else throw an alert
 const saveEventDetails = async () => {
   if (!validateForm()) {
     alert('Please fix the errors in the form.');
     return;
   }
-
+// error handling
   try {
     const updatedEvent = {
       ...editableEvent.value,
@@ -119,6 +124,7 @@ const saveEventDetails = async () => {
       type_id: event.value.type_id,
     };
 
+    // specify the endpt and response
     const endpoint = `/api/eventList/${route.params.id}`;
     const response = await fetchWithPatch(endpoint, updatedEvent);
 
@@ -132,6 +138,7 @@ const saveEventDetails = async () => {
   }
 };
 
+// route back to event list
 const goBackToEventList = () => {
   router.push('/admin/eventList/newEvents').then(() => {
     window.location.reload();
