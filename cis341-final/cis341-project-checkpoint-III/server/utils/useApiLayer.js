@@ -315,10 +315,41 @@ const fetchWithDelete = async (endpoint, data) => {
         });
       }
     };
+
+    const createEventRSVP= async (rsvpDetails) => {
+      try {
+        const response = await $fetch(`${baseUrl}/events_rsvp`, {
+          method: 'POST', // Use POST for updating existing resources
+          body: rsvpDetails, // Send the updated user details in the body
+        });
+        return response; // Return the response from the server (the updated user data or success message)
+      } catch (error) {
+        throw createError({
+          statusCode: 500,
+          statusMessage: `Failed to create event with ID ${id}.`,
+          data: error,
+        });
+      }
+    };
   
+    const updateEventRSVP = async (id, eventDetails) => {
+      try {
+        const response = await $fetch(`${baseUrl}/events/${id}`, {
+          method: 'PUT', // Use PUT for updating existing resources
+          body: eventDetails, // Send the updated user details in the body
+        });
+        return response; // Return the response from the server (the updated user data or success message)
+      } catch (error) {
+        throw createError({
+          statusCode: 500,
+          statusMessage: `Failed to update event with ID ${id}.`,
+          data: error,
+        });
+      }
+    };
 
 
-    return {fetchWithDelete, deleteRegisteredUser,createRegisteredUser, fetchWithPost, fetchWithPatch, 
+    return {updateEventRSVP, createEventRSVP, fetchWithDelete, deleteRegisteredUser,createRegisteredUser, fetchWithPost, fetchWithPatch, 
       updateRegisteredUser, getRegisteredUsers, getEventCategories, getEventCategoryDetails, 
       getEvents, getEventDetails, getRegisteredUserDetails, createEvent, updateEvent, deleteEvent, 
       getRegisteredUserRoles, updateEventCategories, createEventCategories, deleteEventCategories,

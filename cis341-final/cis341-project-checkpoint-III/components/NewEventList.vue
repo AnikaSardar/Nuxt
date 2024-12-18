@@ -13,11 +13,18 @@
             <li v-for="event in filteredEvents" :key="event.id">
               <NuxtLink :to="`/newEvents/viewEventDetails/${event.id}`">
                 <em>{{ event.name }} - @{{ event.location }}</em>
-                <p>Date: {{ dateString(event.date) }}</p>
+                <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
                 <p>Attendees: {{ event.attendees }}</p>
               </NuxtLink>
               <button @click="editEvent(event.id)">Edit</button>
               <button @click="deleteEventById(event.id)">Delete</button>
+              <!-- Ensure that only registered users can rsvp using role_id, and disable rsvp button if the user is already rsvped -->
+              <button 
+                v-if="role_id === 3" 
+                @click="rsvpToEvent(event.id)" 
+                :disabled="rsvpStatus[event.id]">
+                {{ rsvpStatus[event.id] ? "RSVP'd" : "RSVP" }}
+              </button>
             </li>
           </ul>
         </div>
@@ -30,15 +37,22 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router'; // Import the useRouter hook
+import { generateUniqueId } from "./utils/generateUniqueId";
 
-const { dateString } = useDateUtils();
-
-const router = useRouter(); // Initialize the router instance
+const {getUserId} = useAuth();
+const router = useRouter();
 
 const events = ref([]);
 const error = ref(null);
 const status = ref('pending');
-const { getEvents, deleteEvent } = useApiService();
+const userId = getUserId(); //retrieving user Id from the session
+const rsvpStatus = ref({}); //disable rsvp button so that same user can't rsvp multiple times to the same event if successfully already rsvp-ed
+
+const { getEvents, deleteEvent, fetchWithPost, getRegisteredUserDetails, fetchWithPatch } = useApiService();
+
+const roleDetails = await getRegisteredUserDetails(userId);
+const role_id = roleDetails.user.value?.role_id || 0;
+//console.log("Roleeee is: ", role_id);
 
 try {
   const response = await getEvents();
@@ -89,6 +103,61 @@ const deleteEventById = async (eventId) => {
     alert('Failed to delete event. Please try again.');
   }
 };
+
+    // RSVP to an event
+const rsvpToEvent = async (eventId) => {
+  try {
+    //await saveEventRSVP(rsvpData); // Save RSVP to the database
+    const rsvpData = ref({
+      id: generateUniqueId(),
+      user_id: parseInt(userId, 10),
+      event_id: eventId,
+      registered: new Date().toISOString(),
+      });
+    const response = await fetchWithPost('/api/eventsRegisteredUsers/registeredUserRSVP', rsvpData.value);
+      if (response.error) {
+        error.value = 'Failed to RSVP user. Please try again.';
+        console.error(response.error);
+      } else {
+        alert('Successfully RSVP’d to the event!');
+        rsvpStatus.value[eventId] = true; // Mark event as RSVP'd
+        router.push('/admin/eventList/newEvents');
+        status.value = 'success';
+
+        //increment event attendees
+        const event = events.value.find((e) => e.id === eventId);
+        if (event) {
+          event.attendees += 1;
+          // post the event so that DB also holds the correct number of attendees
+          //const saveEventDetails = async () => {
+            try {
+                // const updatedEvent = {
+                //   ...event.value,
+                //   date: new Date(`${event.value.date}T09:00:00Z`).toISOString(),
+                // };
+            
+                const endpoint = `/api/eventList/${eventId}`;
+                const response = await fetchWithPatch(endpoint, event);
+            
+                if (response.error) {
+                  console.log('Failed to update event details. Please try again.');
+                } else {
+                  console.log('Event details updated successfully!');
+                }
+              } catch (err) {
+                alert('An unexpected error occurred.');
+              }
+            //};
+        }
+      }
+    } catch (err) {
+      error.value = 'An unexpected error occurred.';
+      console.error(err);
+      status.value = 'error';
+    } finally {
+      status.value = null;
+    }
+  };
 </script>
 
 <style scoped>

@@ -49,10 +49,16 @@ export const useAuth = () => {
       : "anonymous";
   };
 
+  const getUserId = () => {
+    return token.value
+      ? `${token.value.id}`
+      : "anonymous";
+  };
+
   const getRole = () => {
     return token.value ? token.value.role : "none";
   };
 
 
-  return { login, logout, isAuthenticated, getUserName, getRole };
+  return { getUserId, login, logout, isAuthenticated, getUserName, getRole };
 };

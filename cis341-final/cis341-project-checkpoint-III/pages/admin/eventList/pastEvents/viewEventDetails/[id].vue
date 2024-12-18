@@ -14,7 +14,7 @@
         <h2>{{ event.name }}</h2>
         <p>{{ event.description }}</p>
         <p>Location: {{ event.location }}</p>
-        <p>Date: {{ dateString(event.date) }}</p>
+        <p>Date: {{ new Date(event.date).toLocaleDateString() }}</p>
         <p>Price: ${{ event.price }}</p>
         <p>Attendees: {{ event.attendees }}</p>
         <p>Event Owner: {{ event.eventOwner.full_name }}</p>
@@ -31,7 +31,6 @@ useHead({
 })
 
 const route = useRoute();
-const { dateString } = useDateUtils();
 const { data: event, error, pending } = await useFetch(`/api/eventList/${route.params.id}`);
 
 if (error.value) {

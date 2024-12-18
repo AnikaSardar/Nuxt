@@ -61,6 +61,23 @@ export const useApiService = () => {
       return { data, error };
     };
 
+    const createEventRSVP = async (rsvpDetails) => {
+      const { data, error } = await useFetch(`/api/eventsRegisteredUsers/registeredUserRSVP`, {
+        method: 'POST',
+        body: rsvpDetails,
+      });
+      return { data, error };
+    };
+
+    //updates attendees
+    const updateEventRSVP = async (id, eventDetails) => {
+      const { data, error } = await useFetch(`/api/eventList/${id}`, {
+        method: 'PUT',
+        body: eventDetails,
+      });
+      return { data, error };
+    };
+
     const fetchWithPatch = async (endpoint, data) => {
       try {
         const response = await fetch(endpoint, {
@@ -280,8 +297,10 @@ export const useApiService = () => {
       }
     };
 
+    
 
-    return { fetchWithDELETE, deleteRegisteredUser, createRegisteredUser, fetchWithPost, fetchWithPatch, updateRegisteredUser, getRegisteredUsers, 
+
+    return { updateEventRSVP, createEventRSVP, fetchWithDELETE, deleteRegisteredUser, createRegisteredUser, fetchWithPost, fetchWithPatch, updateRegisteredUser, getRegisteredUsers, 
       getRegisteredUserDetails, getEventCategories, getEventCategoryDetails, getEvents, getEventDetails, updateEvent, createEvent, fetchEventWithPut, 
       fetchEventWithPost, deleteEvent, fetchEventWithDELETE, getRegisteredUserRoles, updateEventCategories, createEventCategories, deleteEventCategories,
        fetchEventCategoriesWithPut, fetchEventCategoriesWithPost, fetchEventCategoriesWithDELETE };
